@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.ui.util;
+package com.akhutornoy.transformerswar.ui.utils;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

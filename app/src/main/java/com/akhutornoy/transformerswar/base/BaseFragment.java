@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.akhutornoy.transformerswar.ui.util.AppDialog;
+import com.akhutornoy.transformerswar.ui.utils.AppDialog;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -61,5 +61,4 @@ public abstract class BaseFragment extends Fragment {
     protected void handleErrorMessage(String errorMessage) {
         Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
     }
-
 }

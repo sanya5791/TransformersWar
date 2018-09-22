@@ -8,17 +8,14 @@ import android.view.ViewGroup;
 
 import com.akhutornoy.transformerswar.R;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class WarriorsActivityFragment extends Fragment {
+public class TransformersActivityFragment extends Fragment {
 
-    public WarriorsActivityFragment() {
+    public TransformersActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_warriors, container, false);
+        return inflater.inflate(R.layout.fragment_tranformers, container, false);
     }
 }
