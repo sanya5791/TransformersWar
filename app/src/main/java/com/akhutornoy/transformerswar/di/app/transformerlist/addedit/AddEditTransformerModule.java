@@ -11,6 +11,7 @@ import com.akhutornoy.transformerswar.interactor.transformerlist.addedit.AddTran
 import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
 import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerFragment;
 import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerViewModel;
+import com.akhutornoy.transformerswar.utils.validation.ValidationManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,17 +27,24 @@ public class AddEditTransformerModule {
 
     @Provides
     @FragmentScope
-    public ViewModelFactory provideViewModelFactory(AllSparkProvider allSparkProvider, NetworkApi api) {
+    public ViewModelFactory provideViewModelFactory(AllSparkProvider allSparkProvider, NetworkApi api, ValidationManager validationManager) {
         AddTransformerInteractor interactor = new AddTransformerInteractor(allSparkProvider, api);
-        return new ViewModelFactory(interactor);
+        return new ViewModelFactory(interactor, validationManager);
     }
 
+    @Provides
+    @FragmentScope
+    public ValidationManager provideValidationManager() {
+        return new ValidationManager();
+    }
 
     class ViewModelFactory implements ViewModelProvider.Factory {
         private final AddTransformerInteractor interactor;
+        private final ValidationManager validationManager;
 
-        ViewModelFactory(AddTransformerInteractor interactor) {
+        ViewModelFactory(AddTransformerInteractor interactor, ValidationManager validationManager) {
             this.interactor = interactor;
+            this.validationManager = validationManager;
         }
 
         @NonNull
@@ -44,7 +52,7 @@ public class AddEditTransformerModule {
         @SuppressWarnings("unchecked")
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             if (modelClass == AddTransformerViewModel.class) {
-                return (T) new AddTransformerViewModel(interactor);
+                return (T) new AddTransformerViewModel(interactor, validationManager);
             }
             throw new IllegalArgumentException("Don't have ViewModel for '" + modelClass + "'");
         }

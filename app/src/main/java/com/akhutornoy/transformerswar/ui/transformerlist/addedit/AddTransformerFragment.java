@@ -3,6 +3,7 @@ package com.akhutornoy.transformerswar.ui.transformerlist.addedit;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,14 @@ import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.utils.validation.validator.TransformerCriteriaValidator;
+import com.akhutornoy.transformerswar.utils.validation.validator.TransformerNameValidator;
+import com.akhutornoy.transformerswar.utils.validation.models.ValidationModel;
+import com.akhutornoy.transformerswar.utils.validation.models.ValidationResult;
+import com.akhutornoy.transformerswar.utils.validation.validator.ValidationState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -59,6 +68,9 @@ public class AddTransformerFragment extends BaseFragment {
 
     @Override
     protected void initViewModelObservers() {
+        viewModel.getOnTransformerValidated().observe(this,
+                this::onTransformerValidated);
+
         viewModel.getOnTransformerAdded().observe(this,
                 isAdded -> navigation.navigateToTransformersList());
     }
@@ -111,8 +123,44 @@ public class AddTransformerFragment extends BaseFragment {
     }
 
     private void onSaveClicked() {
-        Transformer transformer = getTransformerData();
-        viewModel.addTransformer(transformer);
+        List<ValidationModel> validationModels = getValidationModels();
+        viewModel.validate(validationModels);
+    }
+
+    private List<ValidationModel> getValidationModels() {
+        List<ValidationModel> models = new ArrayList<>();
+        models.add(getNameValidationModel());
+        models.add(getCriteriaValidationModel(strengthEt));
+        models.add(getCriteriaValidationModel(intelligenceEt));
+        models.add(getCriteriaValidationModel(speedEt));
+        models.add(getCriteriaValidationModel(enduranceEt));
+        models.add(getCriteriaValidationModel(rankEt));
+        models.add(getCriteriaValidationModel(courageEt));
+        models.add(getCriteriaValidationModel(firepowerEt));
+        models.add(getCriteriaValidationModel(skillEt));
+        return models;
+    }
+
+    private ValidationModel getNameValidationModel() {
+        TransformerNameValidator validator = new TransformerNameValidator(nameEt.getText().toString(), ValidationState.IS_EMPTY);
+        return new ValidationModel(nameEt.getId(), validator, true);
+    }
+
+    private ValidationModel getCriteriaValidationModel(EditText criteriaEt) {
+        int criteriaValue = getNumber(criteriaEt);
+        TransformerCriteriaValidator validator = new TransformerCriteriaValidator(criteriaValue,
+                ValidationState.IS_EMPTY,
+                ValidationState.TRANSFORMER_CRITERIA_WRONG_FORMAT);
+        return new ValidationModel(criteriaEt.getId(), validator, true);
+    }
+
+    private void onTransformerValidated(ValidationResult validationResult) {
+        if (validationResult.isValid()) {
+            Transformer transformer = getTransformerData();
+            viewModel.addTransformer(transformer);
+        } else {
+            setValidationResults(validationResult.getResults());
+        }
     }
 
     private Transformer getTransformerData() {
@@ -145,6 +193,54 @@ public class AddTransformerFragment extends BaseFragment {
     private int getNumber(EditText editText) {
         String text = editText.getText().toString();
         return text.isEmpty() ? 0 : Integer.valueOf(text);
+    }
+
+    private void setValidationResults(List<ValidationResult.Result> results) {
+        for (ValidationResult.Result result : results) {
+            setValidationResult(result);
+        }
+    }
+
+    private void setValidationResult(ValidationResult.Result result) {
+        switch (result.getId()) {
+            case R.id.name_et:
+                setValidationResult(nameEt, result, R.string.add_cant_be_empty);
+                break;
+            case R.id.strength_et:
+                setValidationResult(strengthEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            case R.id.intelligence_et:
+                setValidationResult(intelligenceEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            case R.id.speed_et:
+                setValidationResult(speedEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            case R.id.endurance_et:
+                setValidationResult(enduranceEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            case R.id.rank_et:
+                setValidationResult(rankEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            case R.id.courage_et:
+                setValidationResult(courageEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            case R.id.firepower_et:
+                setValidationResult(firepowerEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            case R.id.skill_et:
+                setValidationResult(skillEt, result, R.string.add_allowed_value_between_1_and_10);
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("No View with id '%d'", result.getId()));
+        }
+    }
+
+    private void setValidationResult(EditText editText, ValidationResult.Result result, @StringRes int errorMessage) {
+        if (ValidationState.NO_ERRORS == result.getState()) {
+            editText.setError(null);
+        } else {
+            editText.setError(getString(errorMessage));
+        }
     }
 
     public interface Navigation {

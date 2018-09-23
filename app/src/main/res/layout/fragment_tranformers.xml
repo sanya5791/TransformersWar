@@ -7,13 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.transformerlist.TransformersFragment">
 
-    <include layout="@layout/toolbar_view" />
+    <include
+        android:id="@+id/toolbar_view"
+        layout="@layout/toolbar_view" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="vertical"
+        android:layout_marginBottom="@dimen/margin_medium"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_view"
         app:layout_constraintBottom_toTopOf="@+id/battle_button"
         app:layout_constraintStart_toStartOf="parent"
