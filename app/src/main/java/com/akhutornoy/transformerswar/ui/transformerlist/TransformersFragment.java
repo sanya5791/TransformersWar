@@ -1,5 +1,6 @@
 package com.akhutornoy.transformerswar.ui.transformerlist;
 
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -27,10 +28,21 @@ public class TransformersFragment extends BaseFragment {
     @Inject
     TransformersViewModel viewModel;
 
+    private Navigation navigation;
     private TransformersAdapter adapter;
 
     public static TransformersFragment newInstance() {
         return new TransformersFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!(context instanceof Navigation)) {
+            throw new IllegalArgumentException(String.format("Calling Activity '%s' should implement interface '%s'",
+                    context.getClass().getSimpleName(), Navigation.class.getName()));
+        }
+        navigation = (Navigation) context;
     }
 
     @Nullable
@@ -57,8 +69,11 @@ public class TransformersFragment extends BaseFragment {
         initListeners(view);
         initList(view);
 
-        if (viewModel.getOnTransformersLoadedLiveData().getValue() == null) {
+        List<TransformerModel> transformers = viewModel.getOnTransformersLoadedLiveData().getValue();
+        if (transformers == null) {
             viewModel.loadTransformers();
+        } else {
+            showTransformers(transformers);
         }
     }
 
@@ -71,10 +86,15 @@ public class TransformersFragment extends BaseFragment {
 
     private void initListeners(View view) {
         view.findViewById(R.id.battle_button).setOnClickListener(v -> onBattleClicked());
+        view.findViewById(R.id.add_fab).setOnClickListener(v -> onAddTransformerClicked());
     }
 
     private void onBattleClicked() {
         viewModel.loadTransformers();
+    }
+
+    private void onAddTransformerClicked() {
+        navigation.navigateToCreateTransformer();
     }
 
     private void initList(View view) {
@@ -103,5 +123,10 @@ public class TransformersFragment extends BaseFragment {
 
     private void showTransformers(List<TransformerModel> transformers) {
         adapter.setTransformers(transformers);
+    }
+
+    interface Navigation {
+        void navigateToCreateTransformer();
+        void navigateToEditTransformer();
     }
 }

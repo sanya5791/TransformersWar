@@ -37,7 +37,7 @@ public class RxUtils {
     public static <T> SingleTransformer<T, T> applyProgressViewSingle(BaseViewModel viewModel) {
         return upstream -> upstream
                 .doOnSubscribe(ignored -> showProgress(viewModel))
-                .doOnSuccess(ignored -> hideProgress(viewModel));
+                .doFinally(() ->hideProgress(viewModel));
     }
 
     private static void showProgress(BaseViewModel viewModel) {

@@ -3,19 +3,20 @@ package com.akhutornoy.transformerswar.ui.transformerlist;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.akhutornoy.transformerswar.R;
 import com.akhutornoy.transformerswar.base.BaseActivity;
+import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerFragment;
 
-public class TransformersActivity extends BaseActivity {
+public class TransformersActivity extends BaseActivity
+        implements TransformersFragment.Navigation, AddTransformerFragment.Navigation {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(view -> {});
         if (savedInstanceState == null) {
-            showFragment(TransformersFragment.newInstance());
+            navigateToTransformersList();
         }
     }
 
@@ -33,16 +34,26 @@ public class TransformersActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void navigateToCreateTransformer() {
+        showFragment(AddTransformerFragment.newInstance(), true);
+    }
+
+    @Override
+    public void navigateToEditTransformer() {
+        Toast.makeText(this, "Not Implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void navigateToTransformersList() {
+        showFragment(TransformersFragment.newInstance());
     }
 }

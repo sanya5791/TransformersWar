@@ -3,7 +3,23 @@
     <string name="all_ok">Ok</string>
     <string name="all_done">Done</string>
     <string name="all_cancel">Cancel</string>
+    <string name="all_save">Save</string>
 
     <string name="transformers_list_battle">Battle!</string>
     <string name="transformers_list_transformers">Transformers</string>
+
+    <string name="add_autobot">Autobot</string>
+    <string name="add_decepticon">Decepticon</string>
+    <string name="add_name">Name</string>
+    <string name="add_strength">Strength</string>
+    <string name="add_intelligence">Intellegence</string>
+    <string name="add_speed">Speed</string>
+    <string name="add_endurance">Endurance</string>
+    <string name="add_rank">Rank</string>
+    <string name="add_courage">Courage</string>
+    <string name="add_firepower">Firepower</string>
+    <string name="add_skills">Skill</string>
+    <string name="add_add_transformer">Create Transformer</string>
+    <string name="autobot_team_api_code">A</string>
+    <string name="decepticon_team_api_code">D</string>
 </resources>
