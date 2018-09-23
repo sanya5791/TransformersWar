@@ -9,25 +9,25 @@ import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
 public class BaseViewModel extends ViewModel {
-    private final CompositeDisposable autounsubscribe = new CompositeDisposable();
+    private final CompositeDisposable autoUnsubscribe = new CompositeDisposable();
     private final MutableLiveData<Boolean> showProgressLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> showErrorLiveData = new MutableLiveData<>();
 
     protected void autoUnsubscribe(Disposable disposable) {
-        autounsubscribe.add(disposable);
+        autoUnsubscribe.add(disposable);
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        autounsubscribe.clear();
+        autoUnsubscribe.clear();
     }
 
     public LiveData<String> getShowErrorLiveData() {
         return showErrorLiveData;
     }
 
-    public LiveData<Boolean> getShowProgressBarLiveData() {
+    public MutableLiveData<Boolean> getShowProgressBarLiveData() {
         return showProgressLiveData;
     }
 

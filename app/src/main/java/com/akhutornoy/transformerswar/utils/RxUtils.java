@@ -1,5 +1,7 @@
 package com.akhutornoy.transformerswar.utils;
 
+import com.akhutornoy.transformerswar.base.BaseViewModel;
+
 import io.reactivex.CompletableTransformer;
 import io.reactivex.MaybeTransformer;
 import io.reactivex.ObservableTransformer;
@@ -30,5 +32,19 @@ public class RxUtils {
     public static <T> MaybeTransformer<T, T> applySchedulersMaybe() {
         return upstream -> upstream.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static <T> SingleTransformer<T, T> applyProgressViewSingle(BaseViewModel viewModel) {
+        return upstream -> upstream
+                .doOnSubscribe(ignored -> showProgress(viewModel))
+                .doOnSuccess(ignored -> hideProgress(viewModel));
+    }
+
+    private static void showProgress(BaseViewModel viewModel) {
+        viewModel.getShowProgressBarLiveData().setValue(true);
+    }
+
+    private static void hideProgress(BaseViewModel viewModel) {
+        viewModel.getShowProgressBarLiveData().setValue(false);
     }
 }

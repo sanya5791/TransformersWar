@@ -1,8 +1,6 @@
-package com.akhutornoy.transformerswar.ui;
+package com.akhutornoy.transformerswar.ui.transformerlist;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,11 +12,11 @@ public class TransformersActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {});
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(view -> {});
+        if (savedInstanceState == null) {
+            showFragment(TransformersFragment.newInstance());
+        }
     }
 
     @Override

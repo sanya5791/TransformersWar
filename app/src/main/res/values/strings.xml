@@ -3,4 +3,7 @@
     <string name="all_ok">Ok</string>
     <string name="all_done">Done</string>
     <string name="all_cancel">Cancel</string>
+
+    <string name="transformers_list_battle">Battle!</string>
+    <string name="transformers_list_transformers">Transformers</string>
 </resources>

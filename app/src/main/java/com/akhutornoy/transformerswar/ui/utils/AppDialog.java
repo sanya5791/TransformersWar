@@ -21,7 +21,7 @@ public class AppDialog {
         if (mProgressDialog == null || !mProgressDialog.isShowing()) {
             mProgressDialog = new ProgressDialog(context, R.style.TransparentProgressDialog);
             mProgressDialog.show();
-//            mProgressDialog.setContentView(R.layout.layout_dialog_progress);
+            mProgressDialog.setContentView(R.layout.layout_dialog_progress);
             if (!BuildConfig.DEBUG) {
                 mProgressDialog.setCancelable(false);
             } else {

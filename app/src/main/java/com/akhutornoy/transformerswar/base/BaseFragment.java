@@ -12,11 +12,14 @@ import android.widget.Toast;
 
 import com.akhutornoy.transformerswar.ui.utils.AppDialog;
 
+import dagger.android.support.AndroidSupportInjection;
+
 public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidSupportInjection.inject(this);
         initViewModelObservers();
         handleErrors();
         handleProgressBar();

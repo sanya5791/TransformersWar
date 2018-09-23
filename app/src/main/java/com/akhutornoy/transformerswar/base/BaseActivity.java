@@ -2,11 +2,14 @@ package com.akhutornoy.transformerswar.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
-import dagger.android.support.DaggerAppCompatActivity;
+import com.akhutornoy.transformerswar.R;
 
 
-public abstract class BaseActivity extends DaggerAppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,4 +19,32 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
 
     @LayoutRes
     protected abstract int getContentViewId();
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    protected void showFragment(BaseFragment fragment) {
+        showFragment(fragment, false);
+    }
+
+    protected void showFragment(BaseFragment fragment, boolean addToBackStack) {
+        String tag = fragment.getClass().getName();
+
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment, tag);
+
+        if (addToBackStack) {
+            transaction.addToBackStack(tag);
+        }
+
+        transaction.commit();
+    }
 }

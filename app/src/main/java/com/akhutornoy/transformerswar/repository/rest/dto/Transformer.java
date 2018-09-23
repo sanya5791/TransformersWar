@@ -1,10 +1,10 @@
 package com.akhutornoy.transformerswar.repository.rest.dto;
 
 public class Transformer {
-    private int id;
+    private String id;
     private String name;
     private String team;
-    private String strength;
+    private int strength;
     private int intelligence;
     private int speed;
     private int endurance;
@@ -14,7 +14,7 @@ public class Transformer {
     private int skill;
     private String team_icon;
 
-    public Transformer(int id, String name, String team, String strength, int intelligence, int speed, int endurance, int rank, int courage, int firepower, int skill, String team_icon) {
+    public Transformer(String id, String name, String team, int strength, int intelligence, int speed, int endurance, int rank, int courage, int firepower, int skill, String team_icon) {
         this.id = id;
         this.name = name;
         this.team = team;
@@ -29,15 +29,19 @@ public class Transformer {
         this.team_icon = team_icon;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getTeam() {
         return team;
     }
 
-    public String getStrength() {
+    public int getStrength() {
         return strength;
     }
 
@@ -75,10 +79,10 @@ public class Transformer {
 
 
     public static class Builder {
-        private int id;
+        private String id;
         private String team;
         private String name;
-        private String strength;
+        private int strength;
         private int intelligence;
         private int speed;
         private int endurance;
@@ -88,7 +92,7 @@ public class Transformer {
         private int skill;
         private String team_icon;
 
-        public Builder setId(int id) {
+        public Builder setId(String id) {
             this.id = id;
             return this;
         }
@@ -103,7 +107,7 @@ public class Transformer {
             return this;
         }
 
-        public Builder setStrength(String strength) {
+        public Builder setStrength(int strength) {
             this.strength = strength;
             return this;
         }
@@ -148,7 +152,7 @@ public class Transformer {
             return this;
         }
 
-        public Transformer createTransformer() {
+        public Transformer build() {
             return new Transformer(id, name, team, strength, intelligence, speed, endurance, rank, courage, firepower, skill, team_icon);
         }
     }
