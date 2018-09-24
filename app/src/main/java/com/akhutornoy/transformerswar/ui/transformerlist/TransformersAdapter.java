@@ -45,6 +45,17 @@ public class TransformersAdapter extends RecyclerView.Adapter<TransformersAdapte
         return items == null ? 0 : items.size();
     }
 
+    public void deleteById(String deleteId) {
+        for (int i = 0; i < items.size(); i++) {
+            TransformerModel item = items.get(i);
+            if (item.getId().equals(deleteId)) {
+                items.remove(i);
+                notifyItemRemoved(i);
+                return;
+            }
+        }
+    }
+
     public interface OnEditListener {
         void onEdit(TransformerModel transformerModel);
         void onDelete(TransformerModel transformerModel);

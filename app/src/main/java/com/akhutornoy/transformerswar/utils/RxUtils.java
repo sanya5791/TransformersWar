@@ -40,6 +40,12 @@ public class RxUtils {
                 .doFinally(() ->hideProgress(viewModel));
     }
 
+    public static CompletableTransformer applyProgressViewCompletable(BaseViewModel viewModel) {
+        return upstream -> upstream
+                .doOnSubscribe(ignored -> showProgress(viewModel))
+                .doFinally(() ->hideProgress(viewModel));
+    }
+
     private static void showProgress(BaseViewModel viewModel) {
         viewModel.getShowProgressBarLiveData().setValue(true);
     }

@@ -21,7 +21,7 @@ public class TransformersViewModel extends BaseViewModel {
             = new MutableLiveData<>();
     private final MutableLiveData<Transformer> onTransformerEditLiveData
             = new MutableLiveData<>();
-    private final MutableLiveData<Transformer> onTransformerDeleteLiveData
+    private final MutableLiveData<String> onTransformerDeleteLiveData
             = new MutableLiveData<>();
     private List<Transformer> transformersApi = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class TransformersViewModel extends BaseViewModel {
         return onTransformerEditLiveData;
     }
 
-    public LiveData<Transformer> getOnTransformerDeleteLiveData() {
+    public LiveData<String> getOnTransformerDeleteLiveData() {
         return onTransformerDeleteLiveData;
     }
 
@@ -74,7 +74,15 @@ public class TransformersViewModel extends BaseViewModel {
     }
 
     public void deleteTransformer(String transformerId) {
-
+        autoUnsubscribe(
+                transformerListInteractor.deleteTransformer(transformerId)
+                    .compose(RxUtils.applySchedulersCompletable())
+                    .compose(RxUtils.applyProgressViewCompletable(this))
+                    .subscribe(
+                            () -> onTransformerDeleteLiveData.setValue(transformerId),
+                            this::showError
+                    )
+        );
     }
 
     public void editTransformer(TransformerModel transformerModel) {

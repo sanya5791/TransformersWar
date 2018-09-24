@@ -7,6 +7,7 @@ import com.akhutornoy.transformerswar.repository.rest.dto.Transformers;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public class TransformerListInteractor extends BaseInteractor {
@@ -21,5 +22,10 @@ public class TransformerListInteractor extends BaseInteractor {
         return getAllStark()
                 .flatMap(api::getTransformers)
                 .map(Transformers::getTransformers);
+    }
+
+    public Completable deleteTransformer(String transformerId) {
+        return getAllStark()
+                .flatMapCompletable(allSpark -> api.deleteTransformer(allSpark, transformerId));
     }
 }

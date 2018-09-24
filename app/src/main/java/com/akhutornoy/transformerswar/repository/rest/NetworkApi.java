@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface NetworkApi {
 
@@ -26,9 +27,9 @@ public interface NetworkApi {
     @PUT("/transformers")
     Single<Transformer> updateTransformer(@Header("Authorization") String allSpark, @Body Transformer transformer);
 
-    @GET("/transformers")
-    Single<Transformer> getTransormer(@Header("Authorization") String allSpark, String transformerId);
+    @GET("/transformers/{id}")
+    Single<Transformer> getTransormer(@Header("Authorization") String allSpark, @Path("id") String transformerId);
 
-    @DELETE("/transformers")
-    Completable deleteTransormer(@Header("Authorization") String allSpark, String transformerId);
+    @DELETE("/transformers/{id}")
+    Completable deleteTransformer(@Header("Authorization") String allSpark, @Path("id") String transformerId);
 }

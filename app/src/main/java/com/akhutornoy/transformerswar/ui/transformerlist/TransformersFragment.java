@@ -129,8 +129,8 @@ public class TransformersFragment extends BaseFragment {
         navigation.navigateToEditTransformer(transformer);
     }
 
-    private void onTransformerDeleted(Transformer transformer) {
-
+    private void onTransformerDeleted(String deletedId) {
+        adapter.deleteById(deletedId);
     }
 
     private void showTransformers(List<TransformerModel> transformers) {
