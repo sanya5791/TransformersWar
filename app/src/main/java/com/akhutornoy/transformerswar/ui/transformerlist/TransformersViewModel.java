@@ -18,7 +18,12 @@ public class TransformersViewModel extends BaseViewModel {
     private final RatingCalculator ratingCalculator;
 
     private final MutableLiveData<List<TransformerModel>> onTransformersLoadedViewModel
-                                    = new MutableLiveData<>();
+            = new MutableLiveData<>();
+    private final MutableLiveData<Transformer> onTransformerEditLiveData
+            = new MutableLiveData<>();
+    private final MutableLiveData<Transformer> onTransformerDeleteLiveData
+            = new MutableLiveData<>();
+    private List<Transformer> transformersApi = new ArrayList<>();
 
     public TransformersViewModel(TransformerListInteractor transformerListInteractor, RatingCalculator ratingCalculator) {
         this.transformerListInteractor = transformerListInteractor;
@@ -29,9 +34,18 @@ public class TransformersViewModel extends BaseViewModel {
         return onTransformersLoadedViewModel;
     }
 
+    public LiveData<Transformer> getOnTransformerEditLiveData() {
+        return onTransformerEditLiveData;
+    }
+
+    public LiveData<Transformer> getOnTransformerDeleteLiveData() {
+        return onTransformerDeleteLiveData;
+    }
+
     public void loadTransformers() {
         autoUnsubscribe(
                 transformerListInteractor.loadTransformers()
+                        .doOnSuccess(transformers -> transformersApi = transformers)
                         .map(this::mapToTransformersModel)
                         .compose(RxUtils.applySchedulersSingle())
                         .compose(RxUtils.applyProgressViewSingle(this))
@@ -61,5 +75,15 @@ public class TransformersViewModel extends BaseViewModel {
 
     public void deleteTransformer(String transformerId) {
 
+    }
+
+    public void editTransformer(TransformerModel transformerModel) {
+        for (Transformer transformer : transformersApi) {
+            if (transformer.getId().equals(transformerModel.getId())) {
+                onTransformerEditLiveData.setValue(transformer);
+                return;
+            }
+        }
+        throw new IllegalArgumentException(String.format("Can't find Transformer name=%s, with id=%s for edit", transformerModel.getName(), transformerModel.getId()));
     }
 }

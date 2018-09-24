@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.akhutornoy.transformerswar.R;
 import com.akhutornoy.transformerswar.base.BaseActivity;
@@ -17,6 +16,7 @@ import com.akhutornoy.transformerswar.base.BaseFragment;
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
+import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 
 import java.util.List;
 import java.util.Objects;
@@ -55,6 +55,10 @@ public class TransformersFragment extends BaseFragment {
     protected void initViewModelObservers() {
         viewModel.getOnTransformersLoadedLiveData()
                 .observe(this, this::showTransformers);
+        viewModel.getOnTransformerEditLiveData()
+                .observe(this, this::onTransformerEdited);
+        viewModel.getOnTransformerDeleteLiveData()
+                .observe(this, this::onTransformerDeleted);
     }
 
     @Override
@@ -111,14 +115,22 @@ public class TransformersFragment extends BaseFragment {
         return new TransformersAdapter.OnEditListener() {
             @Override
             public void onEdit(TransformerModel transformerModel) {
-                Toast.makeText(getActivity(), "On Edit", Toast.LENGTH_SHORT).show();
+                viewModel.editTransformer(transformerModel);
             }
 
             @Override
             public void onDelete(TransformerModel transformerModel) {
-                Toast.makeText(getActivity(), "On Delete", Toast.LENGTH_SHORT).show();
+                viewModel.deleteTransformer(transformerModel.getId());
             }
         };
+    }
+
+    private void onTransformerEdited(Transformer transformer) {
+        navigation.navigateToEditTransformer(transformer);
+    }
+
+    private void onTransformerDeleted(Transformer transformer) {
+
     }
 
     private void showTransformers(List<TransformerModel> transformers) {
@@ -127,6 +139,6 @@ public class TransformersFragment extends BaseFragment {
 
     interface Navigation {
         void navigateToCreateTransformer();
-        void navigateToEditTransformer();
+        void navigateToEditTransformer(Transformer transformer);
     }
 }

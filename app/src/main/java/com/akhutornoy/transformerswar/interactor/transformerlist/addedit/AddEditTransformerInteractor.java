@@ -7,10 +7,10 @@ import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 
 import io.reactivex.Single;
 
-public class AddTransformerInteractor extends BaseInteractor {
+public class AddEditTransformerInteractor extends BaseInteractor {
     private final NetworkApi api;
 
-    public AddTransformerInteractor(AllSparkProvider allSparkProvider, NetworkApi api) {
+    public AddEditTransformerInteractor(AllSparkProvider allSparkProvider, NetworkApi api) {
         super(allSparkProvider);
         this.api = api;
     }
@@ -18,5 +18,10 @@ public class AddTransformerInteractor extends BaseInteractor {
     public Single<Transformer> addTransformer(Transformer transformer) {
         return getAllStark()
                 .flatMap(allSpark -> api.postTransformer(allSpark, transformer));
+    }
+
+    public Single<Transformer> editTransformer(Transformer transformer) {
+        return getAllStark()
+                .flatMap(allSpark -> api.updateTransformer(allSpark, transformer));
     }
 }

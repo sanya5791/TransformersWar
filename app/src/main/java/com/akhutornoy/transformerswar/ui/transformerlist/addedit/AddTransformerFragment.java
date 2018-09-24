@@ -1,6 +1,7 @@
 package com.akhutornoy.transformerswar.ui.transformerlist.addedit;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -163,7 +164,7 @@ public class AddTransformerFragment extends BaseFragment {
         }
     }
 
-    private Transformer getTransformerData() {
+    protected Transformer getTransformerData() {
         return new Transformer.Builder()
                 .setTeam(getTeam())
                 .setName(nameEt.getText().toString())
@@ -180,13 +181,12 @@ public class AddTransformerFragment extends BaseFragment {
 
     private String getTeam() {
         int checkedId = teamRg.getCheckedRadioButtonId();
-        switch (checkedId) {
-            case R.id.autobot_rb:
-                return getString(R.string.autobot_team_api_code);
-            case R.id.deception_rb:
-                return getString(R.string.decepticon_team_api_code);
-            default:
-                throw new IllegalArgumentException(String.format("can't find Team for id %d", checkedId));
+        if (checkedId == Team.A.radioButtonId) {
+            return Team.A.name();
+        } else if (checkedId == Team.D.radioButtonId) {
+            return Team.D.name();
+        } else {
+            throw new IllegalArgumentException(String.format("can't find Team for id %d", checkedId));
         }
     }
 
@@ -240,6 +240,63 @@ public class AddTransformerFragment extends BaseFragment {
             editText.setError(null);
         } else {
             editText.setError(getString(errorMessage));
+        }
+    }
+
+    protected void setTeamRg(Team team) {
+        switch (team) {
+            case A:
+                teamRg.check(Team.A.radioButtonId);
+                break;
+            case D:
+                teamRg.check(Team.D.radioButtonId);
+                break;
+        }
+    }
+
+    protected void setName(String text) {
+        nameEt.setText(text);
+    }
+
+    protected void setStrength(String text) {
+        strengthEt.setText(text);
+    }
+
+    protected void setIntelligence(String text) {
+        intelligenceEt.setText(text);
+    }
+
+    protected void setSpeed(String text) {
+        speedEt.setText(text);
+    }
+
+    protected void setEndurance(String text) {
+        enduranceEt.setText(text);
+    }
+
+    protected void setRank(String text) {
+        rankEt.setText(text);
+    }
+
+    protected void setCourage(String text) {
+        courageEt.setText(text);
+    }
+
+    protected void setFirePower(String text) {
+        firepowerEt.setText(text);
+    }
+
+    protected void setSkill(String text) {
+        skillEt.setText(text);
+    }
+
+    enum Team {
+        A(R.id.autobot_rb),
+        D(R.id.deception_rb);
+
+        int radioButtonId;
+        Team(@IdRes int radioButtonId) {
+            this.radioButtonId = radioButtonId;
         }
     }
 

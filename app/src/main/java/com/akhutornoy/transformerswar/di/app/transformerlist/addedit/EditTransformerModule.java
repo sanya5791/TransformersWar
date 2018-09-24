@@ -7,28 +7,29 @@ import android.support.annotation.NonNull;
 
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
 import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;
-import com.akhutornoy.transformerswar.interactor.transformerlist.addedit.AddTransformerInteractor;
+import com.akhutornoy.transformerswar.interactor.transformerlist.addedit.AddEditTransformerInteractor;
 import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerFragment;
 import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerViewModel;
+import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerFragment;
+import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerViewModel;
 import com.akhutornoy.transformerswar.utils.validation.ValidationManager;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class AddEditTransformerModule {
+public class EditTransformerModule {
 
     @Provides
     @FragmentScope
-    public AddTransformerViewModel provideAddTransformerViewModel(AddTransformerFragment fragment, ViewModelFactory factory) {
-        return ViewModelProviders.of(fragment, factory).get(AddTransformerViewModel.class);
+    public AddTransformerViewModel provideEditTransformerViewModel(EditTransformerFragment fragment, ViewModelFactory factory) {
+        return ViewModelProviders.of(fragment, factory).get(EditTransformerViewModel.class);
     }
 
     @Provides
     @FragmentScope
     public ViewModelFactory provideViewModelFactory(AllSparkProvider allSparkProvider, NetworkApi api, ValidationManager validationManager) {
-        AddTransformerInteractor interactor = new AddTransformerInteractor(allSparkProvider, api);
+        AddEditTransformerInteractor interactor = new AddEditTransformerInteractor(allSparkProvider, api);
         return new ViewModelFactory(interactor, validationManager);
     }
 
@@ -39,10 +40,10 @@ public class AddEditTransformerModule {
     }
 
     class ViewModelFactory implements ViewModelProvider.Factory {
-        private final AddTransformerInteractor interactor;
+        private final AddEditTransformerInteractor interactor;
         private final ValidationManager validationManager;
 
-        ViewModelFactory(AddTransformerInteractor interactor, ValidationManager validationManager) {
+        ViewModelFactory(AddEditTransformerInteractor interactor, ValidationManager validationManager) {
             this.interactor = interactor;
             this.validationManager = validationManager;
         }
@@ -51,8 +52,8 @@ public class AddEditTransformerModule {
         @Override
         @SuppressWarnings("unchecked")
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass == AddTransformerViewModel.class) {
-                return (T) new AddTransformerViewModel(interactor, validationManager);
+            if (modelClass == EditTransformerViewModel.class) {
+                return (T) new EditTransformerViewModel(interactor, validationManager);
             }
             throw new IllegalArgumentException("Don't have ViewModel for '" + modelClass + "'");
         }

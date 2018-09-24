@@ -3,11 +3,12 @@ package com.akhutornoy.transformerswar.ui.transformerlist;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.akhutornoy.transformerswar.R;
 import com.akhutornoy.transformerswar.base.BaseActivity;
+import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerFragment;
+import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerFragment;
 
 public class TransformersActivity extends BaseActivity
         implements TransformersFragment.Navigation, AddTransformerFragment.Navigation {
@@ -48,8 +49,8 @@ public class TransformersActivity extends BaseActivity
     }
 
     @Override
-    public void navigateToEditTransformer() {
-        Toast.makeText(this, "Not Implemented yet", Toast.LENGTH_SHORT).show();
+    public void navigateToEditTransformer(Transformer transformer) {
+        showFragment(EditTransformerFragment.newInstance(transformer), true);
     }
 
     @Override

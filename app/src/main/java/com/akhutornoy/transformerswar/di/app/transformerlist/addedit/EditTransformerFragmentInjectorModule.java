@@ -2,17 +2,17 @@ package com.akhutornoy.transformerswar.di.app.transformerlist.addedit;
 
 import com.akhutornoy.transformerswar.di.app.interactor.AllSparkProviderModule;
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerFragment;
+import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class AddEditFragmentInjectorModule {
+public abstract class EditTransformerFragmentInjectorModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = {
-            AddEditTransformerModule.class,
+            EditTransformerModule.class,
             AllSparkProviderModule.class,
     })
-    public abstract AddTransformerFragment provideAddTransformerFragment();
+    public abstract EditTransformerFragment provideAddTransformerFragment();
 }

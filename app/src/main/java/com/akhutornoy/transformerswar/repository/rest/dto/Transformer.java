@@ -1,6 +1,9 @@
 package com.akhutornoy.transformerswar.repository.rest.dto;
 
-public class Transformer {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Transformer implements Parcelable {
     private String id;
     private String name;
     private String team;
@@ -27,6 +30,37 @@ public class Transformer {
         this.firepower = firepower;
         this.skill = skill;
         this.team_icon = team_icon;
+    }
+
+    protected Transformer(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        team = in.readString();
+        strength = in.readInt();
+        intelligence = in.readInt();
+        speed = in.readInt();
+        endurance = in.readInt();
+        rank = in.readInt();
+        courage = in.readInt();
+        firepower = in.readInt();
+        skill = in.readInt();
+        team_icon = in.readString();
+    }
+
+    public static final Creator<Transformer> CREATOR = new Creator<Transformer>() {
+        @Override
+        public Transformer createFromParcel(Parcel in) {
+            return new Transformer(in);
+        }
+
+        @Override
+        public Transformer[] newArray(int size) {
+            return new Transformer[size];
+        }
+    };
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getId() {
@@ -75,6 +109,27 @@ public class Transformer {
 
     public String getTeam_icon() {
         return team_icon;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(team);
+        dest.writeInt(strength);
+        dest.writeInt(intelligence);
+        dest.writeInt(speed);
+        dest.writeInt(endurance);
+        dest.writeInt(rank);
+        dest.writeInt(courage);
+        dest.writeInt(firepower);
+        dest.writeInt(skill);
+        dest.writeString(team_icon);
     }
 
 
