@@ -1,8 +1,10 @@
 package com.akhutornoy.transformerswar.ui.addedit;
 
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.view.View;
 
+import com.akhutornoy.transformerswar.R;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 
 public class EditTransformerFragment extends AddTransformerFragment {
@@ -24,6 +26,11 @@ public class EditTransformerFragment extends AddTransformerFragment {
         Transformer argTransformer = getArgTransformer();
         transformerId = argTransformer.getId();
         initTransformer(argTransformer);
+    }
+
+    @Override
+    protected @StringRes int getToolbarTitle() {
+        return R.string.add_edit_transformer_title;
     }
 
     private Transformer getArgTransformer() {

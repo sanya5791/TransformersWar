@@ -24,4 +24,5 @@
     <string name="decepticon_team_api_code">D</string>
     <string name="add_allowed_value_between_1_and_10">Allowed value between 1 and 10</string>
     <string name="add_cant_be_empty">Can\'t be empty</string>
+    <string name="add_edit_transformer_title">Update Transformer</string>
 </resources>

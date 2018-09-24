@@ -94,7 +94,11 @@ public class AddTransformerFragment extends BaseFragment {
         setHasOptionsMenu(true);
         Toolbar toolbarView = view.findViewById(R.id.toolbar_view);
         toolbar.setToolbar(toolbarView, true);
-        toolbar.setToolbarTitle(R.string.add_add_transformer);
+        toolbar.setToolbarTitle(getToolbarTitle());
+    }
+
+    protected @StringRes int getToolbarTitle() {
+        return R.string.add_add_transformer;
     }
 
     @Override
