@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.ui.transformerlist.addedit;
+package com.akhutornoy.transformerswar.ui.addedit;
 
 import android.content.Context;
 import android.support.annotation.IdRes;

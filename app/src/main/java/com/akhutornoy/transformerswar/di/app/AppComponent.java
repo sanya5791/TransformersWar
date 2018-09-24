@@ -5,9 +5,9 @@ import com.akhutornoy.transformerswar.di.app.bins.AppModule;
 import com.akhutornoy.transformerswar.di.app.bins.OkHttpClientModule;
 import com.akhutornoy.transformerswar.di.app.bins.RetrofitModule;
 import com.akhutornoy.transformerswar.di.app.bins.SharedPreferencesModule;
-import com.akhutornoy.transformerswar.di.app.transformerlist.TransformerListInjectorModule;
-import com.akhutornoy.transformerswar.di.app.transformerlist.addedit.AddTransformerFragmentInjectorModule;
-import com.akhutornoy.transformerswar.di.app.transformerlist.addedit.EditTransformerFragmentInjectorModule;
+import com.akhutornoy.transformerswar.di.app.ui.transformerlist.TransformerListInjectorModule;
+import com.akhutornoy.transformerswar.di.app.ui.addedit.AddTransformerFragmentInjectorModule;
+import com.akhutornoy.transformerswar.di.app.ui.addedit.EditTransformerFragmentInjectorModule;
 
 import javax.inject.Singleton;
 

@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.di.app.transformerlist.addedit;
+package com.akhutornoy.transformerswar.di.app.ui.addedit;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -7,23 +7,22 @@ import android.support.annotation.NonNull;
 
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
 import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;
-import com.akhutornoy.transformerswar.interactor.transformerlist.addedit.AddEditTransformerInteractor;
+import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
 import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerViewModel;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerFragment;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerViewModel;
+import com.akhutornoy.transformerswar.ui.addedit.AddTransformerFragment;
+import com.akhutornoy.transformerswar.ui.addedit.AddTransformerViewModel;
 import com.akhutornoy.transformerswar.utils.validation.ValidationManager;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class EditTransformerModule {
+public class AddTransformerModule {
 
     @Provides
     @FragmentScope
-    public AddTransformerViewModel provideEditTransformerViewModel(EditTransformerFragment fragment, ViewModelFactory factory) {
-        return ViewModelProviders.of(fragment, factory).get(EditTransformerViewModel.class);
+    public AddTransformerViewModel provideAddTransformerViewModel(AddTransformerFragment fragment, ViewModelFactory factory) {
+        return ViewModelProviders.of(fragment, factory).get(AddTransformerViewModel.class);
     }
 
     @Provides
@@ -52,8 +51,8 @@ public class EditTransformerModule {
         @Override
         @SuppressWarnings("unchecked")
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            if (modelClass == EditTransformerViewModel.class) {
-                return (T) new EditTransformerViewModel(interactor, validationManager);
+            if (modelClass == AddTransformerViewModel.class) {
+                return (T) new AddTransformerViewModel(interactor, validationManager);
             }
             throw new IllegalArgumentException("Don't have ViewModel for '" + modelClass + "'");
         }

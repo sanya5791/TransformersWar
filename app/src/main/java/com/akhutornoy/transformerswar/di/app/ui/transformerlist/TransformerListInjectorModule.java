@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.di.app.transformerlist;
+package com.akhutornoy.transformerswar.di.app.ui.transformerlist;
 
 import com.akhutornoy.transformerswar.di.app.interactor.AllSparkProviderModule;
 import com.akhutornoy.transformerswar.di.app.interactor.TransformerListInteractorModule;

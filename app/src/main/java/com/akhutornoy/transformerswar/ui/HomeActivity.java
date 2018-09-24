@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.ui.transformerlist;
+package com.akhutornoy.transformerswar.ui;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,10 +7,11 @@ import android.view.MenuItem;
 import com.akhutornoy.transformerswar.R;
 import com.akhutornoy.transformerswar.base.BaseActivity;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.AddTransformerFragment;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerFragment;
+import com.akhutornoy.transformerswar.ui.addedit.AddTransformerFragment;
+import com.akhutornoy.transformerswar.ui.addedit.EditTransformerFragment;
+import com.akhutornoy.transformerswar.ui.transformerlist.TransformersFragment;
 
-public class TransformersActivity extends BaseActivity
+public class HomeActivity extends BaseActivity
         implements TransformersFragment.Navigation, AddTransformerFragment.Navigation {
 
     @Override
@@ -23,7 +24,7 @@ public class TransformersActivity extends BaseActivity
 
     @Override
     protected int getContentViewId() {
-        return R.layout.activity_transformers;
+        return R.layout.activity_home;
     }
 
     @Override

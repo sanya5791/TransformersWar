@@ -1,6 +1,6 @@
-package com.akhutornoy.transformerswar.ui.transformerlist.addedit;
+package com.akhutornoy.transformerswar.ui.addedit;
 
-import com.akhutornoy.transformerswar.interactor.transformerlist.addedit.AddEditTransformerInteractor;
+import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.utils.validation.ValidationManager;
 

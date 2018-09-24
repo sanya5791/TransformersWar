@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.interactor.transformerlist.addedit;
+package com.akhutornoy.transformerswar.interactor.addedit;
 
 import com.akhutornoy.transformerswar.base.BaseInteractor;
 import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;

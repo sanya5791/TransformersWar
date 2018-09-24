@@ -1,10 +1,10 @@
-package com.akhutornoy.transformerswar.ui.transformerlist.addedit;
+package com.akhutornoy.transformerswar.ui.addedit;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.akhutornoy.transformerswar.base.BaseViewModel;
-import com.akhutornoy.transformerswar.interactor.transformerlist.addedit.AddEditTransformerInteractor;
+import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.utils.RxUtils;
 import com.akhutornoy.transformerswar.utils.validation.ValidationManager;

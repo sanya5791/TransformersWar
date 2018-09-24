@@ -137,7 +137,7 @@ public class TransformersFragment extends BaseFragment {
         adapter.setTransformers(transformers);
     }
 
-    interface Navigation {
+    public interface Navigation {
         void navigateToCreateTransformer();
         void navigateToEditTransformer(Transformer transformer);
     }

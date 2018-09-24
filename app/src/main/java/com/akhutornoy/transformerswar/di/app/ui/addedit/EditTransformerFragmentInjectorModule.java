@@ -1,8 +1,8 @@
-package com.akhutornoy.transformerswar.di.app.transformerlist.addedit;
+package com.akhutornoy.transformerswar.di.app.ui.addedit;
 
 import com.akhutornoy.transformerswar.di.app.interactor.AllSparkProviderModule;
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
-import com.akhutornoy.transformerswar.ui.transformerlist.addedit.EditTransformerFragment;
+import com.akhutornoy.transformerswar.ui.addedit.EditTransformerFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

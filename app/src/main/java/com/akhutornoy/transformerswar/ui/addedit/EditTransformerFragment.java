@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.ui.transformerlist.addedit;
+package com.akhutornoy.transformerswar.ui.addedit;
 
 import android.os.Bundle;
 import android.view.View;

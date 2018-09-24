@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.di.app.transformerlist;
+package com.akhutornoy.transformerswar.di.app.ui.transformerlist;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
