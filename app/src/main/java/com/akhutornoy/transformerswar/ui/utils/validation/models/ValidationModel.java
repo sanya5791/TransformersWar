@@ -1,6 +1,6 @@
-package com.akhutornoy.transformerswar.utils.validation.models;
+package com.akhutornoy.transformerswar.ui.utils.validation.models;
 
-import com.akhutornoy.transformerswar.utils.validation.validator.Validator;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.Validator;
 
 public class ValidationModel {
     private final int id;

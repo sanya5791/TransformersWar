@@ -1,6 +1,6 @@
-package com.akhutornoy.transformerswar.utils.validation.models;
+package com.akhutornoy.transformerswar.ui.utils.validation.models;
 
-import com.akhutornoy.transformerswar.utils.validation.validator.ValidationState;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.ValidationState;
 
 import java.util.List;
 

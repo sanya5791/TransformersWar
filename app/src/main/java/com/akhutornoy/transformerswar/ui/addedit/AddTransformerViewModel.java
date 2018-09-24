@@ -7,9 +7,9 @@ import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.utils.RxUtils;
-import com.akhutornoy.transformerswar.utils.validation.ValidationManager;
-import com.akhutornoy.transformerswar.utils.validation.models.ValidationModel;
-import com.akhutornoy.transformerswar.utils.validation.models.ValidationResult;
+import com.akhutornoy.transformerswar.ui.utils.validation.ValidationManager;
+import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationModel;
+import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationResult;
 
 import java.util.List;
 

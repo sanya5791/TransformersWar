@@ -18,11 +18,11 @@ import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
-import com.akhutornoy.transformerswar.utils.validation.validator.TransformerCriteriaValidator;
-import com.akhutornoy.transformerswar.utils.validation.validator.TransformerNameValidator;
-import com.akhutornoy.transformerswar.utils.validation.models.ValidationModel;
-import com.akhutornoy.transformerswar.utils.validation.models.ValidationResult;
-import com.akhutornoy.transformerswar.utils.validation.validator.ValidationState;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.TransformerCriteriaValidator;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.TransformerNameValidator;
+import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationModel;
+import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationResult;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.ValidationState;
 
 import java.util.ArrayList;
 import java.util.List;

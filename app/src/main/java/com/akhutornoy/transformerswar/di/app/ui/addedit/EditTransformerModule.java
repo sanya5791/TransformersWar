@@ -12,7 +12,7 @@ import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
 import com.akhutornoy.transformerswar.ui.addedit.AddTransformerViewModel;
 import com.akhutornoy.transformerswar.ui.addedit.EditTransformerFragment;
 import com.akhutornoy.transformerswar.ui.addedit.EditTransformerViewModel;
-import com.akhutornoy.transformerswar.utils.validation.ValidationManager;
+import com.akhutornoy.transformerswar.ui.utils.validation.ValidationManager;
 
 import dagger.Module;
 import dagger.Provides;

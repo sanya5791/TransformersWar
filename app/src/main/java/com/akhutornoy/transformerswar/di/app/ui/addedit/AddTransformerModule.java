@@ -6,12 +6,12 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
-import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;
 import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
+import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;
 import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
 import com.akhutornoy.transformerswar.ui.addedit.AddTransformerFragment;
 import com.akhutornoy.transformerswar.ui.addedit.AddTransformerViewModel;
-import com.akhutornoy.transformerswar.utils.validation.ValidationManager;
+import com.akhutornoy.transformerswar.ui.utils.validation.ValidationManager;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.utils.validation.validator;
+package com.akhutornoy.transformerswar.ui.utils.validation.validator;
 
 public enum ValidationState {
     NO_ERRORS,

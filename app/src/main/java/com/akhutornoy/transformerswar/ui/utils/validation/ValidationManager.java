@@ -1,14 +1,14 @@
-package com.akhutornoy.transformerswar.utils.validation;
+package com.akhutornoy.transformerswar.ui.utils.validation;
 
-import com.akhutornoy.transformerswar.utils.validation.models.ValidationModel;
-import com.akhutornoy.transformerswar.utils.validation.models.ValidationResult;
-import com.akhutornoy.transformerswar.utils.validation.models.ValidationResult.Result;
-import com.akhutornoy.transformerswar.utils.validation.validator.ValidationState;
+import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationModel;
+import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationResult;
+import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationResult.Result;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.ValidationState;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.akhutornoy.transformerswar.utils.validation.validator.ValidationState.NO_ERRORS;
+import static com.akhutornoy.transformerswar.ui.utils.validation.validator.ValidationState.NO_ERRORS;
 
 public class ValidationManager {
 

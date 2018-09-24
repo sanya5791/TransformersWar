@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.utils.validation.validator;
+package com.akhutornoy.transformerswar.ui.utils.validation.validator;
 
 public class TransformerNameValidator implements Validator {
     private final String string;

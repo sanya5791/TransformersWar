@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.utils.validation.validator;
+package com.akhutornoy.transformerswar.ui.utils.validation.validator;
 
 public class TransformerCriteriaValidator implements Validator {
     private static final int MIN_CRITERIA_VALUE = 1;
