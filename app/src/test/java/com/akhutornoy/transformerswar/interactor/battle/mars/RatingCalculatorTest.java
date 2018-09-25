@@ -1,12 +1,11 @@
-package com.akhutornoy.transformerswar.di.app.ui.transformerlist;
+package com.akhutornoy.transformerswar.interactor.battle.mars;
 
-import com.akhutornoy.transformerswar.interactor.transformerlist.RatingCalculator;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class RatingCalculatorTest {
 

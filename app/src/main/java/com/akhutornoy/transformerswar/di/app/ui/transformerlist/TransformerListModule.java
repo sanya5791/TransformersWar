@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
-import com.akhutornoy.transformerswar.interactor.transformerlist.RatingCalculator;
+import com.akhutornoy.transformerswar.interactor.battle.mars.RatingCalculator;
 import com.akhutornoy.transformerswar.interactor.transformerlist.TransformerListInteractor;
 import com.akhutornoy.transformerswar.ui.transformerlist.TransformersFragment;
 import com.akhutornoy.transformerswar.ui.transformerlist.TransformersViewModel;

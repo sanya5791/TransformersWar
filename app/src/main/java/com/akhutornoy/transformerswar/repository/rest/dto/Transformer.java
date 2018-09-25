@@ -3,7 +3,12 @@ package com.akhutornoy.transformerswar.repository.rest.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class Transformer implements Parcelable {
+    public static final String AUTOBOT_TEAM = "A";
+    public static final String DECEPTICON_TEAM = "D";
+
     private String id;
     private String name;
     private String team;
@@ -16,6 +21,20 @@ public class Transformer implements Parcelable {
     private int firepower;
     private int skill;
     private String team_icon;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transformer that = (Transformer) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
 
     public Transformer(String id, String name, String team, int strength, int intelligence, int speed, int endurance, int rank, int courage, int firepower, int skill, String team_icon) {
         this.id = id;

@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.interactor.transformerlist;
+package com.akhutornoy.transformerswar.interactor.battle.mars;
 
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 

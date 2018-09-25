@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.akhutornoy.transformerswar.base.BaseViewModel;
-import com.akhutornoy.transformerswar.interactor.transformerlist.RatingCalculator;
+import com.akhutornoy.transformerswar.interactor.battle.mars.RatingCalculator;
 import com.akhutornoy.transformerswar.interactor.transformerlist.TransformerListInteractor;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.utils.RxUtils;
