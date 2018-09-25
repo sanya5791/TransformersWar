@@ -23,6 +23,9 @@ public class TransformersViewModel extends BaseViewModel {
             = new MutableLiveData<>();
     private final MutableLiveData<String> onTransformerDeleteLiveData
             = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Transformer>> onStartBattleLiveData
+            = new MutableLiveData<>();
+
     private List<Transformer> transformersApi = new ArrayList<>();
 
     public TransformersViewModel(TransformerListInteractor transformerListInteractor, RatingCalculator ratingCalculator) {
@@ -40,6 +43,10 @@ public class TransformersViewModel extends BaseViewModel {
 
     public LiveData<String> getOnTransformerDeleteLiveData() {
         return onTransformerDeleteLiveData;
+    }
+
+    public LiveData<ArrayList<Transformer>> getOnStartBattleLiveData() {
+        return onStartBattleLiveData;
     }
 
     public void loadTransformers() {
@@ -93,5 +100,9 @@ public class TransformersViewModel extends BaseViewModel {
             }
         }
         throw new IllegalArgumentException(String.format("Can't find Transformer name=%s, with id=%s for edit", transformerModel.getName(), transformerModel.getId()));
+    }
+
+    public void startBattle() {
+        onStartBattleLiveData.setValue(new ArrayList<>(transformersApi));
     }
 }

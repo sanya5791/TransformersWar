@@ -6,4 +6,7 @@
     <color name="colorTransparent">#00000000</color>
     <color name="white">#ffffffff</color>
 
+    <color name="autobot">#FFFB0001</color>
+    <color name="decepticon">#FF443677</color>
+
 </resources>

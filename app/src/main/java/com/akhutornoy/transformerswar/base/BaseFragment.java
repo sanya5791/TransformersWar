@@ -51,15 +51,15 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+    @LayoutRes
+    protected abstract int getFragmentLayoutId();
+
     @Nullable
     protected abstract BaseViewModel getBaseViewModel();
 
     protected abstract void initViewModelObservers();
 
     protected abstract void initViews(View view);
-
-    @LayoutRes
-    protected abstract int getFragmentLayoutId();
 
     protected void handleErrorMessage(String errorMessage) {
         Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();

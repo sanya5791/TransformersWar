@@ -4,9 +4,13 @@
     <string name="all_done">Done</string>
     <string name="all_cancel">Cancel</string>
     <string name="all_save">Save</string>
+    <string name="all_back">Back</string>
 
     <string name="transformers_list_battle">Battle!</string>
     <string name="transformers_list_transformers">Transformers</string>
+
+    <string name="autobot_team_api_code">A</string>
+    <string name="decepticon_team_api_code">D</string>
 
     <string name="add_autobot">Autobot</string>
     <string name="add_decepticon">Decepticon</string>
@@ -20,9 +24,17 @@
     <string name="add_firepower">Firepower</string>
     <string name="add_skills">Skill</string>
     <string name="add_add_transformer">Create Transformer</string>
-    <string name="autobot_team_api_code">A</string>
-    <string name="decepticon_team_api_code">D</string>
     <string name="add_allowed_value_between_1_and_10">Allowed value between 1 and 10</string>
     <string name="add_cant_be_empty">Can\'t be empty</string>
     <string name="add_edit_transformer_title">Update Transformer</string>
+
+    <string name="battle_battle_results">Battle Results</string>
+    <string name="battle_winner">Winner</string>
+    <string name="battle_killed_autobots">Killed Autobots</string>
+    <string name="battle_killed_decepticons">Killed Decepticons</string>
+    <string name="battle_winner_is">Winner is: %1$s</string>
+    <string name="battle_autobots">Autobots</string>
+    <string name="battle_decepticons">Decepticons</string>
+    <string name="battle_all_loose">All loose</string>
+    <string name="battle_no_winner">No Winner</string>
 </resources>

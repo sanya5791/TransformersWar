@@ -9,10 +9,10 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
-public abstract class TransformerListInjectorModule {
+public abstract class TransformersFragmentInjectorModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = {
-            TransformerListModule.class,
+            TransformersModule.class,
             AllSparkProviderModule.class,
             TransformerListInteractorModule.class,
     })

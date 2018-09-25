@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.transformerlist.TransformersFragment">
+
+    <include
+        android:id="@+id/toolbar_view"
+        layout="@layout/toolbar_view" />
+
+    <TextView
+        android:id="@+id/winner_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/margin_medium"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textStyle="bold"
+        android:text="@string/battle_winner"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_view"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
+        android:scrollbars="vertical"
+        android:paddingBottom="@dimen/padding_medium"
+        app:layout_constraintTop_toBottomOf="@+id/winner_text_tv"
+        app:layout_constraintBottom_toTopOf="@+id/killed_autobots_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_battle" />
+
+    <TextView
+        android:id="@+id/killed_autobots_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:textStyle="bold"
+        android:text="@string/battle_killed_autobots"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view"
+        app:layout_constraintBottom_toTopOf="@+id/killed_decept_title_tv"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/killed_autobots_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        app:layout_constraintStart_toEndOf="@id/results_barrier"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view"
+        tools:text="23" />
+
+    <TextView
+        android:id="@+id/killed_decept_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:textStyle="bold"
+        android:text="@string/battle_killed_decepticons"
+        app:layout_constraintTop_toBottomOf="@id/killed_autobots_title_tv"
+        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/killed_decept_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        tools:text="21"
+        app:layout_constraintTop_toBottomOf="@id/killed_autobots_title_tv"
+        app:layout_constraintStart_toEndOf="@id/results_barrier" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/results_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="winner_title_tv,killed_decept_title_tv,killed_autobots_title_tv" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_back"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@+id/killed_decept_title_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        style="@style/TransformerButton" />
+
+</android.support.constraint.ConstraintLayout>

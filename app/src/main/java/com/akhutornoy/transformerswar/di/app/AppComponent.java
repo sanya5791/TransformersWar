@@ -5,7 +5,8 @@ import com.akhutornoy.transformerswar.di.app.bins.AppModule;
 import com.akhutornoy.transformerswar.di.app.bins.OkHttpClientModule;
 import com.akhutornoy.transformerswar.di.app.bins.RetrofitModule;
 import com.akhutornoy.transformerswar.di.app.bins.SharedPreferencesModule;
-import com.akhutornoy.transformerswar.di.app.ui.transformerlist.TransformerListInjectorModule;
+import com.akhutornoy.transformerswar.di.app.ui.battle.BattleFragmentInjectorModule;
+import com.akhutornoy.transformerswar.di.app.ui.transformerlist.TransformersFragmentInjectorModule;
 import com.akhutornoy.transformerswar.di.app.ui.addedit.AddTransformerFragmentInjectorModule;
 import com.akhutornoy.transformerswar.di.app.ui.addedit.EditTransformerFragmentInjectorModule;
 
@@ -23,9 +24,10 @@ import dagger.android.support.AndroidSupportInjectionModule;
         OkHttpClientModule.class,
         RetrofitModule.class,
         SharedPreferencesModule.class,
-        TransformerListInjectorModule.class,
+        TransformersFragmentInjectorModule.class,
         AddTransformerFragmentInjectorModule.class,
         EditTransformerFragmentInjectorModule.class,
+        BattleFragmentInjectorModule.class
 })
 public interface AppComponent extends AndroidInjector<App> {
 }

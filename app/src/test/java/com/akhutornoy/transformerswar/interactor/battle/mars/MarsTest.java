@@ -19,9 +19,13 @@ public class MarsTest {
     private static final String PREDAKING = "Predaking";
 
     private Mars mars;
+
     @Before
-    public void init() throws Exception {
-        mars = new Mars(new TransformersArena(new RatingCalculator()));
+    public void init() {
+        BattleInitializer battleInitializer = new BattleInitializer();
+        RatingCalculator calculator = new RatingCalculator();
+        TransformersArena transformersArena = new TransformersArena(calculator);
+        mars = new Mars(battleInitializer, transformersArena);
     }
 
     @Test

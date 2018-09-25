@@ -11,5 +11,6 @@
     <dimen name="padding_big">24dp</dimen>
 
     <dimen name="fab_margin">@dimen/margin_medium</dimen>
+    <dimen name="battle_icon">48dp</dimen>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.akhutornoy.transformerswar.interactor.battle.mars;
 
+import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.battle.model.AfterBattleState;
 import com.akhutornoy.transformerswar.ui.battle.model.BeforeBattleState;
 import com.akhutornoy.transformerswar.ui.battle.model.Fighters;
@@ -10,10 +11,16 @@ import java.util.List;
 
 public class Mars {
 
+    private final BattleInitializer battleInitializer;
     private final TransformersArena transformersArena;
 
-    public Mars(TransformersArena transformersArena) {
+    public Mars(BattleInitializer battleInitializer, TransformersArena transformersArena) {
+        this.battleInitializer = battleInitializer;
         this.transformersArena = transformersArena;
+    }
+
+    public List<Fighters> disposeTransformers(List<Transformer> transformers) {
+        return battleInitializer.disposeTransformers(transformers);
     }
 
     public AfterBattleState startBattle(BeforeBattleState beforeBattleState) {

@@ -18,6 +18,7 @@ import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,6 +60,8 @@ public class TransformersFragment extends BaseFragment {
                 .observe(this, this::onTransformerEdited);
         viewModel.getOnTransformerDeleteLiveData()
                 .observe(this, this::onTransformerDeleted);
+        viewModel.getOnStartBattleLiveData()
+                .observe(this, navigation::navigateToStartBattle);
     }
 
     @Override
@@ -94,7 +97,7 @@ public class TransformersFragment extends BaseFragment {
     }
 
     private void onBattleClicked() {
-        viewModel.loadTransformers();
+        viewModel.startBattle();
     }
 
     private void onAddTransformerClicked() {
@@ -140,5 +143,6 @@ public class TransformersFragment extends BaseFragment {
     public interface Navigation {
         void navigateToCreateTransformer();
         void navigateToEditTransformer(Transformer transformer);
+        void navigateToStartBattle(ArrayList<Transformer> transformers);
     }
 }
