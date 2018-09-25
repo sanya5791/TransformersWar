@@ -184,7 +184,6 @@ public class BattleFragment extends BaseFragment {
     }
 
     private @DrawableRes int getWinnerIco(Team winner) {
-        @DrawableRes int icoRes;
         switch (winner) {
             case AUTOBOT:
                 return R.drawable.ic_autobot;
@@ -198,5 +197,4 @@ public class BattleFragment extends BaseFragment {
     public interface Navigation {
         void navigateBack();
     }
-
 }

@@ -8,6 +8,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -44,6 +45,7 @@ public class AddTransformerFragment extends BaseFragment {
     private EditText courageEt;
     private EditText firepowerEt;
     private EditText skillEt;
+    private Button saveButton;
 
     private Navigation navigation;
 
@@ -73,7 +75,7 @@ public class AddTransformerFragment extends BaseFragment {
                 this::onTransformerValidated);
 
         viewModel.getOnTransformerAdded().observe(this,
-                isAdded -> navigation.navigateToTransformersList());
+                isAdded -> navigation.navigateBack());
     }
 
     @Override
@@ -86,7 +88,7 @@ public class AddTransformerFragment extends BaseFragment {
     protected void initViews(View view) {
         initToolbar(view);
         initViewsById(view);
-        initListeners(view);
+        initListeners();
     }
 
     private void initToolbar(View view) {
@@ -104,7 +106,7 @@ public class AddTransformerFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item != null && item.getItemId() == android.R.id.home) {
-            navigation.navigateToTransformersList();
+            navigation.navigateBack();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -121,13 +123,15 @@ public class AddTransformerFragment extends BaseFragment {
         courageEt = view.findViewById(R.id.courage_et);
         firepowerEt = view.findViewById(R.id.firepower_et);
         skillEt = view.findViewById(R.id.skill_et);
+        saveButton = view.findViewById(R.id.save_button);
     }
 
-    private void initListeners(View view) {
-        view.findViewById(R.id.save_button).setOnClickListener(v -> onSaveClicked());
+    private void initListeners() {
+        saveButton.setOnClickListener(v -> onSaveClicked());
     }
 
     private void onSaveClicked() {
+        hideKeyboard(saveButton);
         List<ValidationModel> validationModels = getValidationModels();
         viewModel.validate(validationModels);
     }
@@ -305,6 +309,6 @@ public class AddTransformerFragment extends BaseFragment {
     }
 
     public interface Navigation {
-        void navigateToTransformersList();
+        void navigateBack();
     }
 }

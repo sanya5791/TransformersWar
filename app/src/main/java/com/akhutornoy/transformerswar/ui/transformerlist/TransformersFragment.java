@@ -7,8 +7,10 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.akhutornoy.transformerswar.R;
 import com.akhutornoy.transformerswar.base.BaseActivity;
@@ -61,7 +63,7 @@ public class TransformersFragment extends BaseFragment {
         viewModel.getOnTransformerDeleteLiveData()
                 .observe(this, this::onTransformerDeleted);
         viewModel.getOnStartBattleLiveData()
-                .observe(this, navigation::navigateToStartBattle);
+                .observe(this, this::navigateToBattleScreen);
     }
 
     @Override
@@ -101,6 +103,7 @@ public class TransformersFragment extends BaseFragment {
     }
 
     private void onAddTransformerClicked() {
+        viewModel.resetLiveData();
         navigation.navigateToCreateTransformer();
     }
 
@@ -123,21 +126,43 @@ public class TransformersFragment extends BaseFragment {
 
             @Override
             public void onDelete(TransformerModel transformerModel) {
-                viewModel.deleteTransformer(transformerModel.getId());
+                viewModel.deleteTransformer(transformerModel);
             }
         };
     }
 
-    private void onTransformerEdited(Transformer transformer) {
-        navigation.navigateToEditTransformer(transformer);
+    private void onTransformerEdited(@Nullable Transformer transformer) {
+        if (transformer != null) {
+            viewModel.resetLiveData();
+            navigation.navigateToEditTransformer(transformer);
+        }
     }
 
-    private void onTransformerDeleted(String deletedId) {
-        adapter.deleteById(deletedId);
+    private void navigateToBattleScreen(@Nullable ArrayList<Transformer> transformers) {
+        if (transformers != null) {
+            viewModel.resetLiveData();
+            navigation.navigateToStartBattle(transformers);
+        }
     }
 
-    private void showTransformers(List<TransformerModel> transformers) {
-        adapter.setTransformers(transformers);
+    private void onTransformerDeleted(@Nullable TransformerModel transformer) {
+        if (transformer != null) {
+            adapter.deleteById(transformer.getId());
+            showTransformerDeletedMessage(transformer);
+        }
+    }
+
+    private void showTransformerDeletedMessage(TransformerModel transformer) {
+        Toast toast = Toast.makeText(getActivity(), getString(R.string.transformers_is_deleted, transformer.getName()),
+                Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    private void showTransformers(@Nullable List<TransformerModel> transformers) {
+        if (transformers != null) {
+            adapter.setTransformers(transformers);
+        }
     }
 
     public interface Navigation {

@@ -57,7 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/margin_medium"
-        android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         app:layout_constraintStart_toEndOf="@id/results_barrier"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view"
@@ -92,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="right"
-        app:constraint_referenced_ids="winner_title_tv,killed_decept_title_tv,killed_autobots_title_tv" />
+        app:constraint_referenced_ids="killed_decept_title_tv,killed_autobots_title_tv" />
 
     <Button
         android:id="@+id/button"

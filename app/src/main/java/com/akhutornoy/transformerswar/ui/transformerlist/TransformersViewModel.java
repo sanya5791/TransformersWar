@@ -21,7 +21,7 @@ public class TransformersViewModel extends BaseViewModel {
             = new MutableLiveData<>();
     private final MutableLiveData<Transformer> onTransformerEditLiveData
             = new MutableLiveData<>();
-    private final MutableLiveData<String> onTransformerDeleteLiveData
+    private final MutableLiveData<TransformerModel> onTransformerDeleteLiveData
             = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Transformer>> onStartBattleLiveData
             = new MutableLiveData<>();
@@ -41,7 +41,7 @@ public class TransformersViewModel extends BaseViewModel {
         return onTransformerEditLiveData;
     }
 
-    public LiveData<String> getOnTransformerDeleteLiveData() {
+    public LiveData<TransformerModel> getOnTransformerDeleteLiveData() {
         return onTransformerDeleteLiveData;
     }
 
@@ -80,13 +80,13 @@ public class TransformersViewModel extends BaseViewModel {
                 .build();
     }
 
-    public void deleteTransformer(String transformerId) {
+    public void deleteTransformer(TransformerModel transformer) {
         autoUnsubscribe(
-                transformerListInteractor.deleteTransformer(transformerId)
+                transformerListInteractor.deleteTransformer(transformer.getId())
                     .compose(RxUtils.applySchedulersCompletable())
                     .compose(RxUtils.applyProgressViewCompletable(this))
                     .subscribe(
-                            () -> onTransformerDeleteLiveData.setValue(transformerId),
+                            () -> onTransformerDeleteLiveData.setValue(transformer),
                             this::showError
                     )
         );
@@ -104,5 +104,12 @@ public class TransformersViewModel extends BaseViewModel {
 
     public void startBattle() {
         onStartBattleLiveData.setValue(new ArrayList<>(transformersApi));
+    }
+
+    public void resetLiveData() {
+        onTransformersLoadedViewModel.setValue(null);
+        onStartBattleLiveData.setValue(null);
+        onTransformerEditLiveData.setValue(null);
+        onTransformerDeleteLiveData.setValue(null);
     }
 }

@@ -21,7 +21,7 @@ public class HomeActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            navigateToTransformersList();
+            showFragment(TransformersFragment.newInstance());
         }
     }
 
@@ -43,11 +43,6 @@ public class HomeActivity extends BaseActivity
     @Override
     public void navigateToStartBattle(ArrayList<Transformer> transformers) {
         showFragment(BattleFragment.newInstance(transformers), true);
-    }
-
-    @Override
-    public void navigateToTransformersList() {
-        showFragment(TransformersFragment.newInstance());
     }
 
     @Override

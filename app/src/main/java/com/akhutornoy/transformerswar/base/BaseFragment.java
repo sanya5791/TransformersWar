@@ -1,5 +1,6 @@
 package com.akhutornoy.transformerswar.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.akhutornoy.transformerswar.ui.utils.AppDialog;
@@ -63,5 +65,12 @@ public abstract class BaseFragment extends Fragment {
 
     protected void handleErrorMessage(String errorMessage) {
         Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void hideKeyboard(View focusThief) {
+        focusThief.requestFocus();
+        InputMethodManager imm = (InputMethodManager) focusThief.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(focusThief.getWindowToken(), 0);
     }
 }

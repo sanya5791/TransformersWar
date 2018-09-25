@@ -8,6 +8,7 @@
 
     <string name="transformers_list_battle">Battle!</string>
     <string name="transformers_list_transformers">Transformers</string>
+    <string name="transformers_is_deleted">%1s is deleted</string>
 
     <string name="autobot_team_api_code">A</string>
     <string name="decepticon_team_api_code">D</string>
