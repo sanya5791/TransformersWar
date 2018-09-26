@@ -39,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_right)
                 .replace(R.id.fragment_container, fragment, tag);
 
         if (addToBackStack) {
