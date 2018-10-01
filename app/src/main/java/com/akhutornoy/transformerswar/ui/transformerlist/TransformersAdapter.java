@@ -16,9 +16,9 @@ import java.util.List;
 public class TransformersAdapter extends RecyclerView.Adapter<TransformersAdapter.ViewHolder>{
 
     private List<TransformerModel> items;
-    private final OnEditListener callback;
+    private final @NonNull OnEditListener callback;
 
-    public TransformersAdapter(OnEditListener listener) {
+    public TransformersAdapter(@NonNull OnEditListener listener) {
         this.callback = listener;
     }
 
@@ -54,6 +54,10 @@ public class TransformersAdapter extends RecyclerView.Adapter<TransformersAdapte
                 return;
             }
         }
+    }
+
+    public void onDeleteByPosition(int adapterPosition) {
+        callback.onDelete(items.get(adapterPosition));
     }
 
     public interface OnEditListener {

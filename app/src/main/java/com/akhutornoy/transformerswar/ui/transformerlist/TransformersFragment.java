@@ -2,11 +2,13 @@ package com.akhutornoy.transformerswar.ui.transformerlist;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,6 +21,7 @@ import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.ui.utils.SwipeToDeleteCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +118,20 @@ public class TransformersFragment extends BaseFragment {
         recyclerView.addItemDecoration(dividerItemDecoration);
         adapter = new TransformersAdapter(onEditTransformer());
         recyclerView.setAdapter(adapter);
+
+        setSwipeToDeleteCallback(recyclerView);
+    }
+
+    private void setSwipeToDeleteCallback(RecyclerView recyclerView) {
+        SwipeToDeleteCallback deleteOnSwipeCallback = new SwipeToDeleteCallback(getActivity()) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                adapter.onDeleteByPosition(viewHolder.getAdapterPosition());
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(deleteOnSwipeCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     private TransformersAdapter.OnEditListener onEditTransformer() {
