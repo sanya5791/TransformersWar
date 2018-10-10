@@ -19,17 +19,15 @@ public abstract class CachedNetworkResource<CacheData, ApiData> {
                 .doOnNext(isCacheValid -> Timber.d("load from %s", isCacheValid ? "Cache" : "API"))
                 .flatMapCompletable(isCacheValid -> isCacheValid
                         ? Completable.complete()
-                        : refreshCache())
-                ;
+                        : refreshCache());
     }
 
     private Completable refreshCache() {
         return getApiData()
-                //todo handle api error here
+                //todo you can handle api error here
                 .map(this::mapApiDataToCacheData)
                 .flatMapCompletable(this::insertToCache)
-                .andThen(setCacheValidationStateOnApiReceived())
-                ;
+                .andThen(setCacheValidationStateOnApiReceived());
     }
 
     protected abstract Flowable<CacheData> getFromCache();

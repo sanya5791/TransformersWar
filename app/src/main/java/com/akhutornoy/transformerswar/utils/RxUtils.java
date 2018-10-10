@@ -55,7 +55,8 @@ public class RxUtils {
     public static <T> FlowableTransformer<T, T> applyProgressViewFlowable (BaseViewModel viewModel) {
         return upstream -> upstream
                 .doOnSubscribe(ignored -> showProgress(viewModel))
-                .doOnNext(ignored -> hideProgress(viewModel));
+                .doOnNext(ignored -> hideProgress(viewModel))
+                .doFinally(() -> hideProgress(viewModel));
     }
 
     private static void showProgress(BaseViewModel viewModel) {

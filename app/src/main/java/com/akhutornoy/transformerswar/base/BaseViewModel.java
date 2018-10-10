@@ -4,8 +4,12 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import java.io.IOException;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 import timber.log.Timber;
 
 public class BaseViewModel extends ViewModel {
@@ -33,8 +37,23 @@ public class BaseViewModel extends ViewModel {
 
     protected void showError(Throwable error) {
         Timber.e(error);
-        if (error.getMessage() != null) {
-            showErrorLiveData.setValue(error.getMessage());
+        String errorMessage = "";
+
+        if (error instanceof HttpException) {
+            try {
+                ResponseBody responseBody = ((HttpException) error).response().errorBody();
+                if (responseBody != null) {
+                    errorMessage = error.getMessage() + ": " + responseBody.string();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        if (errorMessage.isEmpty() && error.getMessage() != null) {
+            errorMessage = error.getMessage();
+        }
+
+        showErrorLiveData.setValue(errorMessage);
     }
 }
