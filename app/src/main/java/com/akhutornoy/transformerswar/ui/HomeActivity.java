@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.akhutornoy.transformerswar.R;
 import com.akhutornoy.transformerswar.base.BaseActivity;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.addedit.AddTransformerFragment;
 import com.akhutornoy.transformerswar.ui.addedit.EditTransformerFragment;
@@ -36,12 +37,12 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    public void navigateToEditTransformer(Transformer transformer) {
+    public void navigateToEditTransformer(TransformerEntity transformer) {
         showFragment(EditTransformerFragment.newInstance(transformer), true);
     }
 
     @Override
-    public void navigateToStartBattle(ArrayList<Transformer> transformers) {
+    public void navigateToStartBattle(ArrayList<TransformerEntity> transformers) {
         showFragment(BattleFragment.newInstance(transformers), true);
     }
 

@@ -5,11 +5,15 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.interactor.battle.BattleInteractor;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.battle.model.AfterBattleState;
 import com.akhutornoy.transformerswar.utils.RxUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Single;
 
 public class BattleViewModel extends BaseViewModel {
 
@@ -26,9 +30,11 @@ public class BattleViewModel extends BaseViewModel {
         return onAfterBattleViewModel;
     }
 
-    public void battle(List<Transformer> transformers) {
+    public void battle(List<TransformerEntity> transformers) {
         autoUnsubscribe(
-                battleInteractor.prepareToBattle(transformers)
+                Single.just(transformers)
+                        .map(this::map)
+                        .flatMap(battleInteractor::prepareToBattle)
                         .flatMap(battleInteractor::battle)
                         .compose(RxUtils.applySchedulersSingle())
                         .compose(RxUtils.applyProgressViewSingle(this))
@@ -36,6 +42,33 @@ public class BattleViewModel extends BaseViewModel {
                                 onAfterBattleViewModel::setValue,
                                 this::showError
                         )
+        );
+    }
+
+    @Deprecated
+    private List<Transformer> map(List<TransformerEntity> source) {
+        List<Transformer> result = new ArrayList<>(source.size());
+        for (TransformerEntity item : source) {
+            result.add(map(item));
+        }
+        return result;
+    }
+
+    @Deprecated
+    private Transformer map(TransformerEntity item) {
+        return new Transformer(
+                item.getId(),
+                item.getName(),
+                item.getTeam(),
+                item.getStrength(),
+                item.getIntelligence(),
+                item.getSpeed(),
+                item.getEndurance(),
+                item.getRank(),
+                item.getCourage(),
+                item.getFirepower(),
+                item.getSkill(),
+                item.getTeam_icon()
         );
     }
 }

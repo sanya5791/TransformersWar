@@ -1,6 +1,6 @@
 package com.akhutornoy.transformerswar.base;
 
-import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;
+import com.akhutornoy.transformerswar.interactor.allspark.AllSparkProvider;
 
 import io.reactivex.Single;
 

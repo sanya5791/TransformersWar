@@ -1,11 +1,10 @@
 package com.akhutornoy.transformerswar.repository.rest.dto;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.Objects;
 
-public class Transformer implements Parcelable {
+public class Transformer {
     public static final String AUTOBOT_TEAM = "A";
     public static final String DECEPTICON_TEAM = "D";
 
@@ -66,18 +65,6 @@ public class Transformer implements Parcelable {
         team_icon = in.readString();
     }
 
-    public static final Creator<Transformer> CREATOR = new Creator<Transformer>() {
-        @Override
-        public Transformer createFromParcel(Parcel in) {
-            return new Transformer(in);
-        }
-
-        @Override
-        public Transformer[] newArray(int size) {
-            return new Transformer[size];
-        }
-    };
-
     public void setId(String id) {
         this.id = id;
     }
@@ -129,28 +116,6 @@ public class Transformer implements Parcelable {
     public String getTeam_icon() {
         return team_icon;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(team);
-        dest.writeInt(strength);
-        dest.writeInt(intelligence);
-        dest.writeInt(speed);
-        dest.writeInt(endurance);
-        dest.writeInt(rank);
-        dest.writeInt(courage);
-        dest.writeInt(firepower);
-        dest.writeInt(skill);
-        dest.writeString(team_icon);
-    }
-
 
     public static class Builder {
         private String id;

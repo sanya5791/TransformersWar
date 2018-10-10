@@ -5,11 +5,11 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
-import com.akhutornoy.transformerswar.utils.RxUtils;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.ui.utils.validation.ValidationManager;
 import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationModel;
 import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationResult;
+import com.akhutornoy.transformerswar.utils.RxUtils;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class AddTransformerViewModel extends BaseViewModel {
         return onTransformerAdded;
     }
 
-    public void addTransformer(Transformer transformer) {
+    public void addTransformer(TransformerEntity transformer) {
         autoUnsubscribe(
                 getAddTransformerObservable(transformer)
                         .compose(RxUtils.applySchedulersSingle())
@@ -45,7 +45,7 @@ public class AddTransformerViewModel extends BaseViewModel {
         );
     }
 
-    protected Single<Transformer> getAddTransformerObservable(Transformer transformer) {
+    protected Single<TransformerEntity> getAddTransformerObservable(TransformerEntity transformer) {
         return addEditTransformerInteractor.addTransformer(transformer);
     }
 

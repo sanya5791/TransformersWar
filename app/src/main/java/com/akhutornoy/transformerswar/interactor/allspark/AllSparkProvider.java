@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.interactor.transformerlist;
+package com.akhutornoy.transformerswar.interactor.allspark;
 
 import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
 import com.akhutornoy.transformerswar.repository.sharedpreferences.AllSparkPreferences;

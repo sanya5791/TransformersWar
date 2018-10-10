@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.interactor.battle.mars.RatingCalculator;
 import com.akhutornoy.transformerswar.interactor.transformerlist.TransformerListInteractor;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.utils.RxUtils;
 
@@ -19,14 +20,12 @@ public class TransformersViewModel extends BaseViewModel {
 
     private final MutableLiveData<List<TransformerModel>> onTransformersLoadedViewModel
             = new MutableLiveData<>();
-    private final MutableLiveData<Transformer> onTransformerEditLiveData
+    private final MutableLiveData<TransformerEntity> onTransformerEditLiveData
             = new MutableLiveData<>();
     private final MutableLiveData<TransformerModel> onTransformerDeleteLiveData
             = new MutableLiveData<>();
-    private final MutableLiveData<ArrayList<Transformer>> onStartBattleLiveData
+    private final MutableLiveData<ArrayList<TransformerEntity>> onStartBattleLiveData
             = new MutableLiveData<>();
-
-    private List<Transformer> transformersApi = new ArrayList<>();
 
     public TransformersViewModel(TransformerListInteractor transformerListInteractor, RatingCalculator ratingCalculator) {
         this.transformerListInteractor = transformerListInteractor;
@@ -37,7 +36,7 @@ public class TransformersViewModel extends BaseViewModel {
         return onTransformersLoadedViewModel;
     }
 
-    public LiveData<Transformer> getOnTransformerEditLiveData() {
+    public LiveData<TransformerEntity> getOnTransformerEditLiveData() {
         return onTransformerEditLiveData;
     }
 
@@ -45,17 +44,16 @@ public class TransformersViewModel extends BaseViewModel {
         return onTransformerDeleteLiveData;
     }
 
-    public LiveData<ArrayList<Transformer>> getOnStartBattleLiveData() {
+    public LiveData<ArrayList<TransformerEntity>> getOnStartBattleLiveData() {
         return onStartBattleLiveData;
     }
 
     public void loadTransformers() {
         autoUnsubscribe(
-                transformerListInteractor.loadTransformers()
-                        .doOnSuccess(transformers -> transformersApi = transformers)
+                transformerListInteractor.getTransformers()
                         .map(this::mapToTransformersModel)
-                        .compose(RxUtils.applySchedulersSingle())
-                        .compose(RxUtils.applyProgressViewSingle(this))
+                        .compose(RxUtils.applySchedulersFlowable())
+                        .compose(RxUtils.applyProgressViewFlowable(this))
                         .subscribe(
                                 onTransformersLoadedViewModel::setValue,
                                 this::showError
@@ -63,21 +61,39 @@ public class TransformersViewModel extends BaseViewModel {
         );
     }
 
-    private List<TransformerModel> mapToTransformersModel(List<Transformer> transformers) {
+    private List<TransformerModel> mapToTransformersModel(List<TransformerEntity> transformers) {
         List<TransformerModel> result = new ArrayList<>(transformers.size());
-        for (Transformer transformer : transformers) {
+        for (TransformerEntity transformer : transformers) {
             result.add(mapToTransformerModel(transformer));
         }
         return result;
     }
 
-    private TransformerModel mapToTransformerModel(Transformer transformer) {
+    private TransformerModel mapToTransformerModel(TransformerEntity transformer) {
         return new TransformerModel.Builder()
                 .setId(transformer.getId())
                 .setName(transformer.getName())
-                .setRate(String.valueOf(ratingCalculator.calculate(transformer)))
+                .setRate(String.valueOf(ratingCalculator.calculate(map(transformer))))
                 .setImageUrl(transformer.getTeam_icon())
                 .build();
+    }
+
+    @Deprecated
+    private Transformer map(TransformerEntity item) {
+        return new Transformer(
+                item.getId(),
+                item.getName(),
+                item.getTeam(),
+                item.getStrength(),
+                item.getIntelligence(),
+                item.getSpeed(),
+                item.getEndurance(),
+                item.getRank(),
+                item.getCourage(),
+                item.getFirepower(),
+                item.getSkill(),
+                item.getTeam_icon()
+        );
     }
 
     public void deleteTransformer(TransformerModel transformer) {
@@ -93,17 +109,29 @@ public class TransformersViewModel extends BaseViewModel {
     }
 
     public void editTransformer(TransformerModel transformerModel) {
-        for (Transformer transformer : transformersApi) {
-            if (transformer.getId().equals(transformerModel.getId())) {
-                onTransformerEditLiveData.setValue(transformer);
-                return;
-            }
-        }
-        throw new IllegalArgumentException(String.format("Can't find Transformer name=%s, with id=%s for edit", transformerModel.getName(), transformerModel.getId()));
+        autoUnsubscribe(
+                transformerListInteractor.getTransformerById(transformerModel.getId())
+                        .compose(RxUtils.applySchedulersSingle())
+                        .compose(RxUtils.applyProgressViewSingle(this))
+                        .subscribe(
+                                onTransformerEditLiveData::setValue,
+                                this::showError
+                        )
+        );
     }
 
     public void startBattle() {
-        onStartBattleLiveData.setValue(new ArrayList<>(transformersApi));
+        autoUnsubscribe(
+                transformerListInteractor.getTransformers()
+                        .take(1)
+                        .map(ArrayList::new)
+                        .compose(RxUtils.applySchedulersFlowable())
+                        .compose(RxUtils.applyProgressViewFlowable(this))
+                        .subscribe(
+                                onStartBattleLiveData::setValue,
+                                this::showError
+                        )
+        );
     }
 
     public void resetLiveData() {

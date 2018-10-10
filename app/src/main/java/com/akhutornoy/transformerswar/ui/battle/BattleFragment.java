@@ -24,6 +24,7 @@ import com.akhutornoy.transformerswar.base.BaseFragment;
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.battle.model.AfterBattleState;
 import com.akhutornoy.transformerswar.ui.battle.model.Team;
@@ -48,7 +49,7 @@ public class BattleFragment extends BaseFragment {
     private TextView killedAutobotsTv;
     private TextView killedDecepticonsTv;
 
-    public static BattleFragment newInstance(ArrayList<Transformer> transformerList) {
+    public static BattleFragment newInstance(ArrayList<TransformerEntity> transformerList) {
         BattleFragment fragment = new BattleFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_TRANSFORMERS_LIST, transformerList);
@@ -93,8 +94,8 @@ public class BattleFragment extends BaseFragment {
         viewModel.battle(getTransformers());
     }
 
-    private List<Transformer> getTransformers() {
-        ArrayList<Transformer> transformers = getArguments().getParcelableArrayList(ARG_TRANSFORMERS_LIST);
+    private List<TransformerEntity> getTransformers() {
+        ArrayList<TransformerEntity> transformers = getArguments().getParcelableArrayList(ARG_TRANSFORMERS_LIST);
         return transformers;
     }
 

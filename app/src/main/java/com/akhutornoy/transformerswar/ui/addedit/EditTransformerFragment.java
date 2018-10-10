@@ -5,14 +5,14 @@ import android.support.annotation.StringRes;
 import android.view.View;
 
 import com.akhutornoy.transformerswar.R;
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 
 public class EditTransformerFragment extends AddTransformerFragment {
     private static final String ARG_TRANSFORMER = "ARG_TRANSFORMER";
 
     private String transformerId;
 
-    public static EditTransformerFragment newInstance(Transformer transformer) {
+    public static EditTransformerFragment newInstance(TransformerEntity transformer) {
         EditTransformerFragment fragment = new EditTransformerFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_TRANSFORMER, transformer);
@@ -23,7 +23,7 @@ public class EditTransformerFragment extends AddTransformerFragment {
     @Override
     protected void initViews(View view) {
         super.initViews(view);
-        Transformer argTransformer = getArgTransformer();
+        TransformerEntity argTransformer = getArgTransformer();
         transformerId = argTransformer.getId();
         initTransformer(argTransformer);
     }
@@ -33,12 +33,12 @@ public class EditTransformerFragment extends AddTransformerFragment {
         return R.string.add_edit_transformer_title;
     }
 
-    private Transformer getArgTransformer() {
+    private TransformerEntity getArgTransformer() {
         assert getArguments() != null;
         return getArguments().getParcelable(ARG_TRANSFORMER);
     }
 
-    private void initTransformer(Transformer transformer) {
+    private void initTransformer(TransformerEntity transformer) {
         Team team = Team.valueOf(transformer.getTeam());
         setTeamRg(team);
         setName(transformer.getName());
@@ -53,8 +53,8 @@ public class EditTransformerFragment extends AddTransformerFragment {
     }
 
     @Override
-    protected Transformer getTransformerData() {
-        Transformer transformer = super.getTransformerData();
+    protected TransformerEntity getTransformerData() {
+        TransformerEntity transformer = super.getTransformerData();
         transformer.setId(transformerId);
         return transformer;
     }

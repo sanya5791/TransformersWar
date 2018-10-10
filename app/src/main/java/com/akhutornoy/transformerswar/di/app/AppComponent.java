@@ -2,6 +2,7 @@ package com.akhutornoy.transformerswar.di.app;
 
 import com.akhutornoy.transformerswar.App;
 import com.akhutornoy.transformerswar.di.app.bins.AppModule;
+import com.akhutornoy.transformerswar.di.app.bins.CacheDbModule;
 import com.akhutornoy.transformerswar.di.app.bins.OkHttpClientModule;
 import com.akhutornoy.transformerswar.di.app.bins.RetrofitModule;
 import com.akhutornoy.transformerswar.di.app.bins.SharedPreferencesModule;
@@ -21,6 +22,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         AppModule.class,
+        CacheDbModule.class,
         OkHttpClientModule.class,
         RetrofitModule.class,
         SharedPreferencesModule.class,

@@ -18,11 +18,11 @@ import com.akhutornoy.transformerswar.base.BaseFragment;
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
-import com.akhutornoy.transformerswar.ui.utils.validation.validator.TransformerCriteriaValidator;
-import com.akhutornoy.transformerswar.ui.utils.validation.validator.TransformerNameValidator;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationModel;
 import com.akhutornoy.transformerswar.ui.utils.validation.models.ValidationResult;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.TransformerCriteriaValidator;
+import com.akhutornoy.transformerswar.ui.utils.validation.validator.TransformerNameValidator;
 import com.akhutornoy.transformerswar.ui.utils.validation.validator.ValidationState;
 
 import java.util.ArrayList;
@@ -165,26 +165,27 @@ public class AddTransformerFragment extends BaseFragment {
 
     private void onTransformerValidated(ValidationResult validationResult) {
         if (validationResult.isValid()) {
-            Transformer transformer = getTransformerData();
+            TransformerEntity transformer = getTransformerData();
             viewModel.addTransformer(transformer);
         } else {
             setValidationResults(validationResult.getResults());
         }
     }
 
-    protected Transformer getTransformerData() {
-        return new Transformer.Builder()
-                .setTeam(getTeam())
-                .setName(nameEt.getText().toString())
-                .setStrength(getNumber(strengthEt))
-                .setIntelligence(getNumber(intelligenceEt))
-                .setSpeed(getNumber(speedEt))
-                .setEndurance(getNumber(enduranceEt))
-                .setRank(getNumber(rankEt))
-                .setCourage(getNumber(courageEt))
-                .setFirepower(getNumber(firepowerEt))
-                .setSkill(getNumber(skillEt))
-                .build();
+    protected TransformerEntity getTransformerData() {
+        return new TransformerEntity(
+                "",
+                nameEt.getText().toString(),
+                getTeam(),
+                getNumber(strengthEt),
+                getNumber(intelligenceEt),
+                getNumber(speedEt),
+                getNumber(enduranceEt),
+                getNumber(rankEt),
+                getNumber(courageEt),
+                getNumber(firepowerEt),
+                getNumber(skillEt),
+                "");
     }
 
     private String getTeam() {

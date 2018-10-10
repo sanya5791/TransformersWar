@@ -20,7 +20,7 @@ import com.akhutornoy.transformerswar.base.BaseFragment;
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 import com.akhutornoy.transformerswar.base.toolbar.BaseToolbar;
 import com.akhutornoy.transformerswar.base.toolbar.IToolbar;
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.ui.utils.SwipeToDeleteCallback;
 
 import java.util.ArrayList;
@@ -148,14 +148,14 @@ public class TransformersFragment extends BaseFragment {
         };
     }
 
-    private void onTransformerEdited(@Nullable Transformer transformer) {
+    private void onTransformerEdited(@Nullable TransformerEntity transformer) {
         if (transformer != null) {
             viewModel.resetLiveData();
             navigation.navigateToEditTransformer(transformer);
         }
     }
 
-    private void navigateToBattleScreen(@Nullable ArrayList<Transformer> transformers) {
+    private void navigateToBattleScreen(@Nullable ArrayList<TransformerEntity> transformers) {
         if (transformers != null) {
             viewModel.resetLiveData();
             navigation.navigateToStartBattle(transformers);
@@ -184,7 +184,7 @@ public class TransformersFragment extends BaseFragment {
 
     public interface Navigation {
         void navigateToCreateTransformer();
-        void navigateToEditTransformer(Transformer transformer);
-        void navigateToStartBattle(ArrayList<Transformer> transformers);
+        void navigateToEditTransformer(TransformerEntity transformer);
+        void navigateToStartBattle(ArrayList<TransformerEntity> transformers);
     }
 }

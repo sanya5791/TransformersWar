@@ -6,8 +6,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
-import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;
+import com.akhutornoy.transformerswar.interactor.allspark.AllSparkProvider;
 import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
+import com.akhutornoy.transformerswar.repository.cache.ValidationDao;
 import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
 import com.akhutornoy.transformerswar.ui.addedit.AddTransformerViewModel;
 import com.akhutornoy.transformerswar.ui.addedit.EditTransformerFragment;
@@ -28,8 +29,8 @@ public class EditTransformerModule {
 
     @Provides
     @FragmentScope
-    public ViewModelFactory provideViewModelFactory(AllSparkProvider allSparkProvider, NetworkApi api, ValidationManager validationManager) {
-        AddEditTransformerInteractor interactor = new AddEditTransformerInteractor(allSparkProvider, api);
+    public ViewModelFactory provideViewModelFactory(AllSparkProvider allSparkProvider, NetworkApi api, ValidationManager validationManager, ValidationDao validationDao) {
+        AddEditTransformerInteractor interactor = new AddEditTransformerInteractor(allSparkProvider, api, validationDao);
         return new ViewModelFactory(interactor, validationManager);
     }
 

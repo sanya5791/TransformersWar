@@ -3,6 +3,7 @@ package com.akhutornoy.transformerswar.utils;
 import com.akhutornoy.transformerswar.base.BaseViewModel;
 
 import io.reactivex.CompletableTransformer;
+import io.reactivex.FlowableTransformer;
 import io.reactivex.MaybeTransformer;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.SingleTransformer;
@@ -34,16 +35,27 @@ public class RxUtils {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static <T> FlowableTransformer<T, T> applySchedulersFlowable() {
+        return upstream -> upstream.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public static <T> SingleTransformer<T, T> applyProgressViewSingle(BaseViewModel viewModel) {
         return upstream -> upstream
                 .doOnSubscribe(ignored -> showProgress(viewModel))
-                .doFinally(() ->hideProgress(viewModel));
+                .doFinally(() -> hideProgress(viewModel));
     }
 
     public static CompletableTransformer applyProgressViewCompletable(BaseViewModel viewModel) {
         return upstream -> upstream
                 .doOnSubscribe(ignored -> showProgress(viewModel))
-                .doFinally(() ->hideProgress(viewModel));
+                .doFinally(() -> hideProgress(viewModel));
+    }
+
+    public static <T> FlowableTransformer<T, T> applyProgressViewFlowable (BaseViewModel viewModel) {
+        return upstream -> upstream
+                .doOnSubscribe(ignored -> showProgress(viewModel))
+                .doOnNext(ignored -> hideProgress(viewModel));
     }
 
     private static void showProgress(BaseViewModel viewModel) {

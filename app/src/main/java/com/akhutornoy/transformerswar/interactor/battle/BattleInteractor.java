@@ -1,8 +1,10 @@
 package com.akhutornoy.transformerswar.interactor.battle;
 
 import com.akhutornoy.transformerswar.base.BaseInteractor;
+import com.akhutornoy.transformerswar.interactor.allspark.AllSparkProvider;
 import com.akhutornoy.transformerswar.interactor.battle.mars.Mars;
-import com.akhutornoy.transformerswar.interactor.transformerlist.AllSparkProvider;
+import com.akhutornoy.transformerswar.repository.cache.ValidationDao;
+import com.akhutornoy.transformerswar.repository.cache.ValidationEntity;
 import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.battle.model.AfterBattleState;
@@ -20,11 +22,13 @@ public class BattleInteractor extends BaseInteractor {
 
     private final NetworkApi api;
     private final Mars mars;
+    private final ValidationDao validationDao;
 
-    public BattleInteractor(AllSparkProvider allSparkProvider, NetworkApi api, Mars mars) {
+    public BattleInteractor(AllSparkProvider allSparkProvider, NetworkApi api, Mars mars, ValidationDao validationDao) {
         super(allSparkProvider);
         this.api = api;
         this.mars = mars;
+        this.validationDao = validationDao;
     }
 
     public Single<BeforeBattleState> prepareToBattle(List<Transformer> transformers) {
@@ -43,7 +47,13 @@ public class BattleInteractor extends BaseInteractor {
                 .flatMapIterable(afterBattleState -> getKilledTransformers(afterBattle))
                 .map(Transformer::getId)
                 .concatMapCompletable(id -> api.deleteTransformer(allSpark, id))
+                .doOnComplete(this::invalidateTransformersCache)
                 .andThen(Single.just(afterBattle));
+    }
+
+    private void invalidateTransformersCache() {
+        ValidationEntity transformersValidation = new ValidationEntity(ValidationDao.Id.TRANSFORMERS.name(), false);
+        validationDao.put(transformersValidation);
     }
 
     private List<Transformer> getKilledTransformers(AfterBattleState afterBattle) {
