@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 
+import com.akhutornoy.transformerswar.di.app.interactor.InteractorsModule;
+import com.akhutornoy.transformerswar.di.app.repository.TransformerRepositoryModule;
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
 import com.akhutornoy.transformerswar.interactor.battle.mars.RatingCalculator;
 import com.akhutornoy.transformerswar.interactor.transformerlist.TransformerListInteractor;
@@ -14,7 +16,7 @@ import com.akhutornoy.transformerswar.ui.transformerlist.TransformersViewModel;
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = {TransformerRepositoryModule.class, InteractorsModule.class})
 public class TransformersModule {
 
     @Provides

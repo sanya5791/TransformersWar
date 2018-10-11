@@ -1,4 +1,4 @@
-package com.akhutornoy.transformerswar.interactor.base;
+package com.akhutornoy.transformerswar.repository.base;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;

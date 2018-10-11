@@ -1,7 +1,6 @@
 package com.akhutornoy.transformerswar.di.app.ui.battle;
 
-import com.akhutornoy.transformerswar.di.app.interactor.AllSparkProviderModule;
-import com.akhutornoy.transformerswar.di.app.interactor.BattleInteractorModule;
+import com.akhutornoy.transformerswar.di.app.repository.TransformerRepositoryModule;
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
 import com.akhutornoy.transformerswar.ui.battle.BattleFragment;
 
@@ -13,8 +12,7 @@ public abstract class BattleFragmentInjectorModule {
     @FragmentScope
     @ContributesAndroidInjector(modules = {
             BattleModule.class,
-            AllSparkProviderModule.class,
-            BattleInteractorModule.class,
+            TransformerRepositoryModule.class,
     })
     public abstract BattleFragment provideBattleFragment();
 }

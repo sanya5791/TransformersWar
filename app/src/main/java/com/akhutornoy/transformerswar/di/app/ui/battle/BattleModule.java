@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 
+import com.akhutornoy.transformerswar.di.app.interactor.InteractorsModule;
 import com.akhutornoy.transformerswar.di.scopes.FragmentScope;
 import com.akhutornoy.transformerswar.interactor.battle.BattleInteractor;
 import com.akhutornoy.transformerswar.ui.battle.BattleFragment;
@@ -13,7 +14,7 @@ import com.akhutornoy.transformerswar.ui.battle.BattleViewModel;
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = {InteractorsModule.class})
 public class BattleModule {
 
     @Provides

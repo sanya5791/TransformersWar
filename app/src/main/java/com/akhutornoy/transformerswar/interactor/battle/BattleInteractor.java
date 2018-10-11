@@ -1,11 +1,7 @@
 package com.akhutornoy.transformerswar.interactor.battle;
 
-import com.akhutornoy.transformerswar.base.BaseInteractor;
-import com.akhutornoy.transformerswar.interactor.allspark.AllSparkProvider;
 import com.akhutornoy.transformerswar.interactor.battle.mars.Mars;
-import com.akhutornoy.transformerswar.repository.cache.ValidationDao;
-import com.akhutornoy.transformerswar.repository.cache.ValidationEntity;
-import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
+import com.akhutornoy.transformerswar.repository.TransformersRepository;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.battle.model.AfterBattleState;
 import com.akhutornoy.transformerswar.ui.battle.model.BeforeBattleState;
@@ -18,17 +14,14 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-public class BattleInteractor extends BaseInteractor {
+public class BattleInteractor {
 
-    private final NetworkApi api;
+    private final TransformersRepository repository;
     private final Mars mars;
-    private final ValidationDao validationDao;
 
-    public BattleInteractor(AllSparkProvider allSparkProvider, NetworkApi api, Mars mars, ValidationDao validationDao) {
-        super(allSparkProvider);
-        this.api = api;
+    public BattleInteractor(TransformersRepository repository, Mars mars) {
         this.mars = mars;
-        this.validationDao = validationDao;
+        this.repository = repository;
     }
 
     public Single<BeforeBattleState> prepareToBattle(List<Transformer> transformers) {
@@ -38,22 +31,15 @@ public class BattleInteractor extends BaseInteractor {
 
     public Single<AfterBattleState> battle(BeforeBattleState beforeBattleState) {
         return Single.fromCallable(() -> mars.startBattle(beforeBattleState))
-                .zipWith(getAllStark(), this::removeKilledTransformers)
-                .flatMap(item -> item);
+                .flatMap(this::removeKilledTransformers);
     }
 
-    private Single<AfterBattleState> removeKilledTransformers(AfterBattleState afterBattle, String allSpark) {
+    private Single<AfterBattleState> removeKilledTransformers(AfterBattleState afterBattle) {
         return Observable.just(afterBattle)
                 .flatMapIterable(afterBattleState -> getKilledTransformers(afterBattle))
                 .map(Transformer::getId)
-                .concatMapCompletable(id -> api.deleteTransformer(allSpark, id))
-                .doOnComplete(this::invalidateTransformersCache)
+                .concatMapCompletable(repository::deleteTransformer)
                 .andThen(Single.just(afterBattle));
-    }
-
-    private void invalidateTransformersCache() {
-        ValidationEntity transformersValidation = new ValidationEntity(ValidationDao.Id.TRANSFORMERS.name(), false);
-        validationDao.put(transformersValidation);
     }
 
     private List<Transformer> getKilledTransformers(AfterBattleState afterBattle) {

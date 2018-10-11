@@ -1,23 +1,32 @@
 package com.akhutornoy.transformerswar.di.app.interactor;
 
+import com.akhutornoy.transformerswar.interactor.addedit.AddEditTransformerInteractor;
 import com.akhutornoy.transformerswar.interactor.battle.BattleInteractor;
 import com.akhutornoy.transformerswar.interactor.battle.mars.BattleInitializer;
 import com.akhutornoy.transformerswar.interactor.battle.mars.Mars;
 import com.akhutornoy.transformerswar.interactor.battle.mars.RatingCalculator;
 import com.akhutornoy.transformerswar.interactor.battle.mars.TransformersArena;
-import com.akhutornoy.transformerswar.interactor.allspark.AllSparkProvider;
-import com.akhutornoy.transformerswar.repository.cache.ValidationDao;
-import com.akhutornoy.transformerswar.repository.rest.NetworkApi;
+import com.akhutornoy.transformerswar.interactor.transformerlist.TransformerListInteractor;
+import com.akhutornoy.transformerswar.repository.TransformersRepository;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class BattleInteractorModule {
+public class InteractorsModule {
     @Provides
-    public BattleInteractor provideBattleInteractor(
-            AllSparkProvider allSparkProvider, NetworkApi networkApi, Mars mars, ValidationDao validationDao) {
-        return new BattleInteractor(allSparkProvider, networkApi, mars, validationDao);
+    public TransformerListInteractor provideTransformerListInteractor(TransformersRepository repository) {
+        return new TransformerListInteractor(repository);
+    }
+
+    @Provides
+    public AddEditTransformerInteractor provideAddEditTransformerInteractor(TransformersRepository repository) {
+        return new AddEditTransformerInteractor(repository);
+    }
+
+    @Provides
+    public BattleInteractor provideBattleInteractor(TransformersRepository repository, Mars mars) {
+        return new BattleInteractor(repository, mars);
     }
 
     @Provides
@@ -27,4 +36,5 @@ public class BattleInteractorModule {
         TransformersArena arena = new TransformersArena(calculator);
         return new Mars(battleInitializer, arena);
     }
+
 }
