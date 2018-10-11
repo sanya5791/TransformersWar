@@ -2,7 +2,7 @@ package com.akhutornoy.transformerswar.interactor.battle.mars;
 
 import android.support.annotation.Nullable;
 
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.ui.battle.model.Fighters;
 import com.akhutornoy.transformerswar.ui.battle.model.Fighters.FightResult;
 
@@ -26,22 +26,22 @@ public class TransformersArena {
             return new Fighters(fighters.getAutobot(), fighters.getDecepticon(), FightResult.TOTAL_ANNIHILATION);
         }
 
-        Transformer superTransformerVictory = applySuperTransformerBattle(fighters);
+        TransformerEntity superTransformerVictory = applySuperTransformerBattle(fighters);
         if (superTransformerVictory != null) {
             return getFightersWithWinner(fighters, superTransformerVictory);
         }
 
-        Transformer courageAndStrengthVictory = applyCourageAndStrengthBattle(fighters);
+        TransformerEntity courageAndStrengthVictory = applyCourageAndStrengthBattle(fighters);
         if (courageAndStrengthVictory != null) {
             return getFightersWithWinner(fighters, courageAndStrengthVictory);
         }
 
-        Transformer skillVictory = applySkillBattle(fighters);
+        TransformerEntity skillVictory = applySkillBattle(fighters);
         if (skillVictory != null) {
             return getFightersWithWinner(fighters, skillVictory);
         }
 
-        Transformer overallRatingVictory = applyOverRatingBattle(fighters);
+        TransformerEntity overallRatingVictory = applyOverRatingBattle(fighters);
         if (overallRatingVictory != null) {
             return getFightersWithWinner(fighters, overallRatingVictory);
         }
@@ -49,16 +49,16 @@ public class TransformersArena {
         return new Fighters(fighters.getAutobot(), fighters.getDecepticon(), FightResult.BOTH_KILLED);
     }
 
-    private Fighters getFightersWithWinner(Fighters fighters, Transformer winner) {
+    private Fighters getFightersWithWinner(Fighters fighters, TransformerEntity winner) {
         FightResult winnerResult = getWinnerResultForTeam(winner.getTeam());
         return new Fighters(fighters.getAutobot(), fighters.getDecepticon(), winnerResult);
     }
 
     private FightResult getWinnerResultForTeam(String team) {
         switch (team) {
-            case Transformer.AUTOBOT_TEAM:
+            case TransformerEntity.AUTOBOT_TEAM:
                 return FightResult.AUTOBOT_WINNER;
-            case Transformer.DECEPTICON_TEAM:
+            case TransformerEntity.DECEPTICON_TEAM:
                 return FightResult.DECIPTICON_WINNER;
             default:
                 throw new IllegalArgumentException(String.format("No WinnerFightResult for team=%s", team));
@@ -70,8 +70,8 @@ public class TransformersArena {
      */
     @Nullable
     private boolean isTotalAnnihilation(Fighters fighters) {
-        Transformer autobot = fighters.getAutobot();
-        Transformer decepticon = fighters.getDecepticon();
+        TransformerEntity autobot = fighters.getAutobot();
+        TransformerEntity decepticon = fighters.getDecepticon();
 
         boolean isAutobotSuperTransformer = OPTIMUS_PRIME.equals(autobot.getName())
                 || PREDAKING.equals(autobot.getName());
@@ -85,9 +85,9 @@ public class TransformersArena {
      * @return either winner or null
      */
     @Nullable
-    private Transformer applySuperTransformerBattle(Fighters fighters) {
-        Transformer autobot = fighters.getAutobot();
-        Transformer decepticon = fighters.getDecepticon();
+    private TransformerEntity applySuperTransformerBattle(Fighters fighters) {
+        TransformerEntity autobot = fighters.getAutobot();
+        TransformerEntity decepticon = fighters.getDecepticon();
 
         if (OPTIMUS_PRIME.equals(autobot.getName())
                 || PREDAKING.equals(autobot.getName())) {
@@ -106,9 +106,9 @@ public class TransformersArena {
      * @return either winner or null
      */
     @Nullable
-    private Transformer applyCourageAndStrengthBattle(Fighters fighters) {
-        Transformer autobot = fighters.getAutobot();
-        Transformer decepticon = fighters.getDecepticon();
+    private TransformerEntity applyCourageAndStrengthBattle(Fighters fighters) {
+        TransformerEntity autobot = fighters.getAutobot();
+        TransformerEntity decepticon = fighters.getDecepticon();
         int advantageByCourage = autobot.getCourage() - decepticon.getCourage();
         int advantageByStrength = autobot.getStrength() - decepticon.getStrength();
 
@@ -140,9 +140,9 @@ public class TransformersArena {
      * @return either winner or null
      */
     @Nullable
-    private Transformer applySkillBattle(Fighters fighters) {
-        Transformer autobot = fighters.getAutobot();
-        Transformer decepticon = fighters.getDecepticon();
+    private TransformerEntity applySkillBattle(Fighters fighters) {
+        TransformerEntity autobot = fighters.getAutobot();
+        TransformerEntity decepticon = fighters.getDecepticon();
         int advantageBySkill = autobot.getSkill() - decepticon.getSkill();
 
         boolean isGreatAdvantage = Math.abs(advantageBySkill) >= GREAT_SKILL;
@@ -158,9 +158,9 @@ public class TransformersArena {
      * @return either winner or null
      */
     @Nullable
-    private Transformer applyOverRatingBattle(Fighters fighters) {
-        Transformer autobot = fighters.getAutobot();
-        Transformer decepticon = fighters.getDecepticon();
+    private TransformerEntity applyOverRatingBattle(Fighters fighters) {
+        TransformerEntity autobot = fighters.getAutobot();
+        TransformerEntity decepticon = fighters.getDecepticon();
         int ratingAutobot = ratingCalculator.calculate(autobot);
         int ratingDeception = ratingCalculator.calculate(decepticon);
 

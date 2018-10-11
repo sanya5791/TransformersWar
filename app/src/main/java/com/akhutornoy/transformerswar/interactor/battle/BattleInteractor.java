@@ -2,6 +2,7 @@ package com.akhutornoy.transformerswar.interactor.battle;
 
 import com.akhutornoy.transformerswar.interactor.battle.mars.Mars;
 import com.akhutornoy.transformerswar.repository.TransformersRepository;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.battle.model.AfterBattleState;
 import com.akhutornoy.transformerswar.ui.battle.model.BeforeBattleState;
@@ -24,7 +25,7 @@ public class BattleInteractor {
         this.repository = repository;
     }
 
-    public Single<BeforeBattleState> prepareToBattle(List<Transformer> transformers) {
+    public Single<BeforeBattleState> prepareToBattle(List<TransformerEntity> transformers) {
         return Single.fromCallable(() -> mars.disposeTransformers(transformers))
                 .map(BeforeBattleState::new);
     }
@@ -37,12 +38,12 @@ public class BattleInteractor {
     private Single<AfterBattleState> removeKilledTransformers(AfterBattleState afterBattle) {
         return Observable.just(afterBattle)
                 .flatMapIterable(afterBattleState -> getKilledTransformers(afterBattle))
-                .map(Transformer::getId)
+                .map(TransformerEntity::getId)
                 .concatMapCompletable(repository::deleteTransformer)
                 .andThen(Single.just(afterBattle));
     }
 
-    private List<Transformer> getKilledTransformers(AfterBattleState afterBattle) {
+    private List<TransformerEntity> getKilledTransformers(AfterBattleState afterBattle) {
         List<Fighters> facedFighters = afterBattle.getFacedFighters();
 
         return afterBattle.getWinner() == Team.TOTAL_ANNIHILATION
@@ -50,8 +51,8 @@ public class BattleInteractor {
                 : getKilledFighters(facedFighters);
     }
 
-    private List<Transformer> getKilledFighters(List<Fighters> fightersList) {
-        List<Transformer> killedTransformers = new ArrayList<>(fightersList.size());
+    private List<TransformerEntity> getKilledFighters(List<Fighters> fightersList) {
+        List<TransformerEntity> killedTransformers = new ArrayList<>(fightersList.size());
         for (Fighters fighters : fightersList) {
             Fighters.FightResult fightResult = fighters.getFightResult();
             switch (fightResult) {
@@ -70,8 +71,8 @@ public class BattleInteractor {
         return killedTransformers;
     }
 
-    private List<Transformer> getAllTransformers(List<Fighters> facedFighters) {
-        List<Transformer> result = new ArrayList<>();
+    private List<TransformerEntity> getAllTransformers(List<Fighters> facedFighters) {
+        List<TransformerEntity> result = new ArrayList<>();
         for (Fighters fighters : facedFighters) {
             result.add(fighters.getAutobot());
             result.add(fighters.getDecepticon());

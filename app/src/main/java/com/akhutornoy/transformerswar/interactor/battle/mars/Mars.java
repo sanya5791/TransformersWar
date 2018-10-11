@@ -1,5 +1,6 @@
 package com.akhutornoy.transformerswar.interactor.battle.mars;
 
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
 import com.akhutornoy.transformerswar.ui.battle.model.AfterBattleState;
 import com.akhutornoy.transformerswar.ui.battle.model.BeforeBattleState;
@@ -19,7 +20,7 @@ public class Mars {
         this.transformersArena = transformersArena;
     }
 
-    public List<Fighters> disposeTransformers(List<Transformer> transformers) {
+    public List<Fighters> disposeTransformers(List<TransformerEntity> transformers) {
         return battleInitializer.disposeTransformers(transformers);
     }
 

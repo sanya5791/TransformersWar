@@ -33,7 +33,7 @@ public class BattleViewModel extends BaseViewModel {
     public void battle(List<TransformerEntity> transformers) {
         autoUnsubscribe(
                 Single.just(transformers)
-                        .map(this::map)
+//                        .map(this::map)
                         .flatMap(battleInteractor::prepareToBattle)
                         .flatMap(battleInteractor::battle)
                         .compose(RxUtils.applySchedulersSingle())

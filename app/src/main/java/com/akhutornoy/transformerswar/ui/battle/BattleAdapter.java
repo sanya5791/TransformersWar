@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akhutornoy.transformerswar.R;
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.ui.battle.model.Fighters;
 
 import java.util.List;
@@ -57,8 +57,8 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
         }
 
         private void bind(Fighters fighters) {
-            Transformer a = fighters.getAutobot();
-            Transformer d = fighters.getDecepticon();
+            TransformerEntity a = fighters.getAutobot();
+            TransformerEntity d = fighters.getDecepticon();
             nameAutobotTv.setText(a.getName());
             iconAutobotIv.setImageResource(getAutobotIco(
                     fighters.getFightResult()));

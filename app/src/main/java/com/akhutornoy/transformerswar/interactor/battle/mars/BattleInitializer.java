@@ -1,6 +1,6 @@
 package com.akhutornoy.transformerswar.interactor.battle.mars;
 
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 import com.akhutornoy.transformerswar.ui.battle.model.Fighters;
 import com.akhutornoy.transformerswar.ui.battle.model.Fighters.FightResult;
 
@@ -11,16 +11,16 @@ import java.util.List;
 
 public class BattleInitializer {
 
-    public List<Fighters> disposeTransformers(List<Transformer> transformers) {
+    public List<Fighters> disposeTransformers(List<TransformerEntity> transformers) {
         List<Fighters> fightersList = new ArrayList<>();
 
-        List<Transformer> autobots = getTeam(transformers, Transformer.AUTOBOT_TEAM);
-        List<Transformer> decepticons = getTeam(transformers, Transformer.DECEPTICON_TEAM);
+        List<TransformerEntity> autobots = getTeam(transformers, TransformerEntity.AUTOBOT_TEAM);
+        List<TransformerEntity> decepticons = getTeam(transformers, TransformerEntity.DECEPTICON_TEAM);
 
-        for (Transformer decepticon : decepticons) {
-            Iterator<Transformer> itAutobot = autobots.iterator();
+        for (TransformerEntity decepticon : decepticons) {
+            Iterator<TransformerEntity> itAutobot = autobots.iterator();
             while (itAutobot.hasNext()) {
-                Transformer autobot = itAutobot.next();
+                TransformerEntity autobot = itAutobot.next();
                 if (decepticon.getRank() == autobot.getRank()) {
                     fightersList.add(new Fighters(autobot, decepticon, FightResult.BOTH_ALIVE));
                     itAutobot.remove();
@@ -32,9 +32,9 @@ public class BattleInitializer {
         return fightersList;
     }
 
-    private List<Transformer> getTeam(List<Transformer> transformers, String team) {
-        List<Transformer> result = new LinkedList<>();
-        for (Transformer transformer : transformers) {
+    private List<TransformerEntity> getTeam(List<TransformerEntity> transformers, String team) {
+        List<TransformerEntity> result = new LinkedList<>();
+        for (TransformerEntity transformer : transformers) {
             if (transformer.getTeam().equals(team)) {
                 result.add(transformer);
             }

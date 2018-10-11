@@ -1,23 +1,23 @@
 package com.akhutornoy.transformerswar.ui.battle.model;
 
-import com.akhutornoy.transformerswar.repository.rest.dto.Transformer;
+import com.akhutornoy.transformerswar.repository.cache.TransformerEntity;
 
 public class Fighters {
-    private final Transformer autobot;
-    private final Transformer decepticon;
+    private final TransformerEntity autobot;
+    private final TransformerEntity decepticon;
     private final FightResult fightResult;
 
-    public Fighters(Transformer autobot, Transformer decepticon, FightResult fightResult) {
+    public Fighters(TransformerEntity autobot, TransformerEntity decepticon, FightResult fightResult) {
         this.autobot = autobot;
         this.decepticon = decepticon;
         this.fightResult = fightResult;
     }
 
-    public Transformer getAutobot() {
+    public TransformerEntity getAutobot() {
         return autobot;
     }
 
-    public Transformer getDecepticon() {
+    public TransformerEntity getDecepticon() {
         return decepticon;
     }
 

@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "Transformers")
 data class TransformerEntity(
         @PrimaryKey
-        var id: String,
+        var id: String = "",
         var name: String = "",
         var team: String = "",
         var strength: Int = 0,
@@ -21,4 +21,9 @@ data class TransformerEntity(
         var firepower: Int = 0,
         var skill: Int = 0,
         var team_icon: String = ""
-) : Parcelable
+) : Parcelable {
+        companion object {
+                const val AUTOBOT_TEAM = "A"
+                const val DECEPTICON_TEAM = "D"
+        }
+}

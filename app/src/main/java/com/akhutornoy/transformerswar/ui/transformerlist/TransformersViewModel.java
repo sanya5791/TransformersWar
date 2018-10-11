@@ -73,27 +73,9 @@ public class TransformersViewModel extends BaseViewModel {
         return new TransformerModel.Builder()
                 .setId(transformer.getId())
                 .setName(transformer.getName())
-                .setRate(String.valueOf(ratingCalculator.calculate(map(transformer))))
+                .setRate(String.valueOf(ratingCalculator.calculate(transformer)))
                 .setImageUrl(transformer.getTeam_icon())
                 .build();
-    }
-
-    @Deprecated
-    private Transformer map(TransformerEntity item) {
-        return new Transformer(
-                item.getId(),
-                item.getName(),
-                item.getTeam(),
-                item.getStrength(),
-                item.getIntelligence(),
-                item.getSpeed(),
-                item.getEndurance(),
-                item.getRank(),
-                item.getCourage(),
-                item.getFirepower(),
-                item.getSkill(),
-                item.getTeam_icon()
-        );
     }
 
     public void deleteTransformer(TransformerModel transformer) {
